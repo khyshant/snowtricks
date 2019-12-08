@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -19,7 +20,7 @@ class Trick
 
     /**
      * @var string|null
-     * @ORM\Column(type="string", length="255" )
+     * @ORM\Column(type="string")
      * @Assert\NotBlank
      */
     private $title;
@@ -32,7 +33,7 @@ class Trick
 
     /**
      * @var string|null
-     * @ORM\Column(type="string", length="255" )
+     * @ORM\Column(type="string" )
      */
     private $metatitle;
 
@@ -65,7 +66,15 @@ class Trick
     private $author;
     private $groupTricks;
     private $comments;
+
+    /**
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="post", orphanRemoval=true, cascade={"persist"})
+     * @Assert\Count(min=1)
+     * @Assert\Valid
+     */
     private $images;
+
     private $videos;
 
     /*__________getter and setter___________*/
