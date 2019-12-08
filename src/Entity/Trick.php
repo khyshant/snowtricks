@@ -263,13 +263,13 @@ class Trick
      */
     public function addImage(Image $image)
     {
-        $image->setPost($this);
+        $image->setTrick($this);
         $this->images->add($image);
     }
 
     public function removeImage(Image $image)
     {
-        $image->setPost(null);
+        $image->setTrick(null);
         $this->images->removeElement($image);
     }
 
