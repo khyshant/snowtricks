@@ -79,6 +79,8 @@ class Trick
     private $videos;
     /*__________construc___________*/
     public function __construct(){
+        $this->setDateAdd(date("Y-m-d H:i:s")) ;
+        $this->setDateUpdate(date("Y-m-d H:i:s")) ;
         $this->images = new ArrayCollection();
     }
 
@@ -255,7 +257,7 @@ class Trick
     {
         return $this->images;
     }
-    
+
     /**
      * @param Image $image
      */
