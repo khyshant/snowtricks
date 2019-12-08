@@ -30,7 +30,7 @@ class AdminTrickController extends AbstractController
     {
         $trick = new Trick();
 
-        $trick = $this->createForm(PostType::class, $trick, [
+        $form = $this->createForm(PostType::class, $trick, [
             "validation_groups" => ["Default", "add"]
         ])->handleRequest($request);
 
@@ -41,7 +41,27 @@ class AdminTrickController extends AbstractController
             return $this->redirectToRoute("index");
         }
 
-        return $this->render("admin/create.html.twig", [
+        return $this->render("admin/trick/create.html.twig", [
+            "form" => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/update", name="trick_update")
+     * @param Request $request
+     * @return Response
+     */
+    public function update(Request $request, Trick $trick): Response
+    {
+        $form = $this->createForm(PostType::class, $trick)->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute("index");
+        }
+
+        return $this->render("admin/trick/update.html.twig", [
             "form" => $form->createView()
         ]);
     }
