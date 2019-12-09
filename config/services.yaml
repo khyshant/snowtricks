@@ -4,7 +4,10 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-
+    upload_dir: 'uploads/'
+    upload_dir_relative_path: '%upload_dir%'
+    upload_dir_absolute_path: '%kernel.project_dir%/public/%upload_dir%'
+    
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -25,3 +28,7 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\EntityListener\:
+        resource: '../src/EntityListener'
+        tags:
+        - { name: doctrine.orm.entity_listener }

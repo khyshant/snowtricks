@@ -54,7 +54,7 @@ class AdminTrickController extends AbstractController
      */
     public function update(Request $request, Trick $trick): Response
     {
-        $form = $this->createForm(PostType::class, $trick)->handleRequest($request);
+        $form = $this->createForm(TrickType::class, $trick)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();

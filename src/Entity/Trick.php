@@ -70,7 +70,7 @@ class Trick
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Image", mappedBy="post", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="trick", orphanRemoval=true, cascade={"persist"})
      * @Assert\Count(min=1)
      * @Assert\Valid
      */
