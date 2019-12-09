@@ -53,6 +53,7 @@ class Trick
     /**
      * @var string
      * @var string A "Y-m-d H:i:s" formatted value
+     * @ORM\Column(type="datetime", nullable=true)
      * @Assert\DateTime()
      */
     private $date_add;
@@ -60,6 +61,7 @@ class Trick
     /**
      * @var string
      * @var string A "Y-m-d H:i:s" formatted value
+     * @ORM\Column(type="datetime", nullable=true)
      * @Assert\DateTime()
      */
     private $date_update;

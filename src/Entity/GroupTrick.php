@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GroupTrickRepository")
@@ -16,20 +18,51 @@ class GroupTrick
      */
     private $id;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $name;
-    private $description;
-    private $valid;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_valid;
+
+    /**
+     * @var string|null
+     * @var string A "Y-m-d H:i:s" formatted value
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\DateTime()
+     */
+
     private $date_add;
+
+    /**
+     * @var string|null
+     * @var string A "Y-m-d H:i:s" formatted value
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\DateTime()
+     */
     private $date_upd;
 
     /*__________relations___________*/
+    /**
+     * @var Collection
+     * @ORM\ManyToMany(targetEntity="App\Entity\Trick", mappedBy="groupTricks")
+     */
     private $tricks;
+    private $trick;
 
 
     /*__________construc___________*/
     public function __construct(){
         $this->setDateAdd(date("Y-m-d H:i:s")) ;
-        $this->setDateUpdate(date("Y-m-d H:i:s")) ;
+        $this->setDateUpd(date("Y-m-d H:i:s")) ;
+        $this->tricks = new ArrayCollection();
         $this->setIsValid(false) ;
     }
 
@@ -74,22 +107,6 @@ class GroupTrick
     /**
      * @return mixed
      */
-    public function getValid()
-    {
-        return $this->valid;
-    }
-
-    /**
-     * @param mixed $valid
-     */
-    public function setValid($valid): void
-    {
-        $this->valid = $valid;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getDateAdd()
     {
         return $this->date_add;
@@ -127,12 +144,48 @@ class GroupTrick
         return $this->tricks;
     }
 
+    public function addTrick(Trick $trick): self
+    {
+        if (!$this->tricks->contains($trick)) {
+            $this->tricks[] = $trick;
+            $trick->addGroupTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrick(Trick $trick): self
+    {
+        if ($this->tricks->contains($trick)) {
+            $this->tricks->removeElement($trick);
+            $trick->removeGroupTrick($this);
+        }
+
+        return $this;
+    }
+
     /**
      * @param mixed $tricks
      */
     public function setTricks($tricks): void
     {
         $this->tricks = $tricks;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getisValid()
+    {
+        return $this->is_valid;
+    }
+
+    /**
+     * @param mixed $is_valid
+     */
+    public function setIsValid($is_valid): void
+    {
+        $this->is_valid = $is_valid;
     }
 
 
