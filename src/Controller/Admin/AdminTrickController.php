@@ -8,7 +8,8 @@
 
 namespace App\Controller\Admin;
 
-
+Use App\Entity\Trick;
+use App\Form\TrickType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +31,7 @@ class AdminTrickController extends AbstractController
     {
         $trick = new Trick();
 
-        $form = $this->createForm(PostType::class, $trick, [
+        $form = $this->createForm(TrickType::class, $trick, [
             "validation_groups" => ["Default", "add"]
         ])->handleRequest($request);
 

@@ -1,0 +1,13 @@
+{{ form_row(form.title) }}
+{{ form_row(form.description) }}
+<button class="btn btn-primary btn-add" type="button" data-target="#images">Ajouter une image</button>
+<div
+        id="images"
+        data-index="{{ form.images|length == 0 ? 0 : form.images|last.vars.name + 1  }}"
+        data-prototype="{{ include("admin/trick/image.html.twig", { form: form.images.vars.prototype })|e("html_attr") }}"
+>
+    {% for image in form.images %}
+
+        
+    {% endfor %}
+</div>

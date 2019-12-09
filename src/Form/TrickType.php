@@ -17,6 +17,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
+ *
  * Class TrickType
  * @package App\Form
  */
@@ -29,7 +30,7 @@ class TrickType extends AbstractType
     {
         $builder
             ->add("title", TextType::class)
-            ->add("content", TextareaType::class)
+            ->add("description", TextareaType::class)
             ->add("images", CollectionType::class, [
                 "entry_type" => ImageType::class,
                 "allow_add" => true,
