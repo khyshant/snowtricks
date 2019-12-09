@@ -32,7 +32,6 @@ class ImageListener
         if ($image->getUploadedFile() === null) {
             return;
         }
-
         $filename = md5(uniqid("", true)) . "." . $image->getUploadedFile()->guessExtension();
         $image->getUploadedFile()->move($this->uploadDirAbsolutePath, $filename);
         $image->setPath($filename);

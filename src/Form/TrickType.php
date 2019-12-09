@@ -35,7 +35,6 @@ class TrickType extends AbstractType
             ->add("description", TextareaType::class)
             ->add("metatitle", TextType::class)
             ->add("metadescription", TextareaType::class)
-            ->add("is_valid", ChoiceType::class)
             ->add("images", CollectionType::class, [
                 "entry_type" => ImageType::class,
                 "allow_add" => true,

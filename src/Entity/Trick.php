@@ -81,6 +81,7 @@ class Trick
     public function __construct(){
         $this->setDateAdd(date("Y-m-d H:i:s")) ;
         $this->setDateUpdate(date("Y-m-d H:i:s")) ;
+        $this->setIsValid(false) ;
         $this->images = new ArrayCollection();
     }
 
