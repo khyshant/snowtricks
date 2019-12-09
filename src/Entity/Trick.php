@@ -65,7 +65,14 @@ class Trick
     private $date_update;
     /*__________relations___________*/
     private $author;
+
+    /**
+     * @var Collection
+     * @ORM\ManyToMany(targetEntity="App\Entity\GroupTrick", inversedBy="tricks")
+     */
     private $groupTricks;
+    protected $groupTrick;
+
     private $comments;
 
     /**
@@ -220,19 +227,31 @@ class Trick
     }
 
     /**
-     * @return mixed
+     * @return Collection|GroupTrick[]
      */
-    public function getGroupTricks()
+    public function getGroupTricks(): Collection
     {
         return $this->groupTricks;
     }
 
-    /**
-     * @param mixed $groupTricks
-     */
-    public function setGroupTricks($groupTricks): void
+    public function addGroupTrick(GroupTrick $groupTrick): self
     {
-        $this->groupTricks = $groupTricks;
+        // Bidirectional Ownership
+        $groupTrick->addTrick($this);
+
+        $this->groupTricks[] = $groupTrick;
+
+
+        return $this;
+    }
+
+    public function removeGroupTrick(GroupTrick $groupTrick): self
+    {
+        if ($this->groupTrick->contains($groupTrick)) {
+            $this->groupTrick->removeElement($groupTrick);
+        }
+
+        return $this;
     }
 
     /**
