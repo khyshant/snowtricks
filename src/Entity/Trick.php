@@ -53,19 +53,26 @@ class Trick
     /**
      * @var string
      * @var string A "Y-m-d H:i:s" formatted value
-     * @Assert\DateTime()
+     * @ORM\Column(type="string", nullable=true)
      */
     private $date_add;
 
     /**
      * @var string
      * @var string A "Y-m-d H:i:s" formatted value
-     * @Assert\DateTime()
+     * @ORM\Column(type="string", nullable=true)
      */
     private $date_update;
     /*__________relations___________*/
     private $author;
+
+    /**
+     * @var Collection
+     * @ORM\ManyToMany(targetEntity="App\Entity\GroupTrick", inversedBy="tricks")
+     */
     private $groupTricks;
+    protected $groupTrick;
+
     private $comments;
 
     /**
@@ -83,6 +90,7 @@ class Trick
         $this->setDateUpdate(date("Y-m-d H:i:s")) ;
         $this->setIsValid(false) ;
         $this->images = new ArrayCollection();
+        $this->groupTricks = new ArrayCollection();
     }
 
     /*__________getter and setter___________*/
@@ -220,19 +228,29 @@ class Trick
     }
 
     /**
-     * @return mixed
+     * @return Collection|GroupTrick[]
      */
-    public function getGroupTricks()
+    public function getGroupTricks(): Collection
     {
         return $this->groupTricks;
     }
 
-    /**
-     * @param mixed $groupTricks
-     */
-    public function setGroupTricks($groupTricks): void
+    public function addGroupTrick(GroupTrick $groupTrick): self
     {
-        $this->groupTricks = $groupTricks;
+        // Bidirectional Ownership
+        $groupTrick->addTrick($this);
+
+        $this->groupTricks[] = $groupTrick;
+        return $this;
+    }
+
+    public function removeGroupTrick(GroupTrick $groupTrick): self
+    {
+        if ($this->groupTrick->contains($groupTrick)) {
+            $this->groupTrick->removeElement($groupTrick);
+        }
+
+        return $this;
     }
 
     /**

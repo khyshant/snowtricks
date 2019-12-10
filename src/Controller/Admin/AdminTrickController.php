@@ -39,7 +39,7 @@ class AdminTrickController extends AbstractController
             $this->getDoctrine()->getManager()->persist($trick);
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute("index");
+            return $this->redirectToRoute("trick_create");
         }
 
         return $this->render("admin/trick/create.html.twig", [
