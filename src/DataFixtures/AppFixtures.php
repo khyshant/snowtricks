@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Comment;
 use App\Entity\GroupTrick;
 use App\Entity\Image;
 use App\Entity\Trick;
@@ -36,6 +37,15 @@ class AppFixtures extends Fixture
 
                     $trick->addImage($image);
     //                $manager->persist($image);
+                }
+                for ($l = 1; $l <= 30; $l++) {
+                    $comment = new Comment();
+                    $comment->setComment(sprintf("commentaire N°%d", $l));
+                    $comment->setTrick($trick);
+                    $comment->setIsValid(rand(0,1));
+
+                    $trick->addComment($comment);
+                    $manager->persist($image);
                 }
 
                 $manager->persist($trick);
