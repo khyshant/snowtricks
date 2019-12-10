@@ -90,6 +90,7 @@ class Trick
         $this->setDateUpdate(date("Y-m-d H:i:s")) ;
         $this->setIsValid(false) ;
         $this->images = new ArrayCollection();
+        $this->groupTricks = new ArrayCollection();
     }
 
     /*__________getter and setter___________*/
@@ -240,8 +241,6 @@ class Trick
         $groupTrick->addTrick($this);
 
         $this->groupTricks[] = $groupTrick;
-
-
         return $this;
     }
 

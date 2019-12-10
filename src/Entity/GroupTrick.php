@@ -135,9 +135,9 @@ class GroupTrick
     }
 
     /**
-     * @return mixed
+     * @return Collection|Trick[]
      */
-    public function getTricks()
+    public function getTricks(): Collection
     {
         return $this->tricks;
     }
