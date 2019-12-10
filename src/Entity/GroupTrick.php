@@ -35,8 +35,7 @@ class GroupTrick
     /**
      * @var string|null
      * @var string A "Y-m-d H:i:s" formatted value
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Assert\DateTime()
+     * @ORM\Column(type="string", nullable=true)
      */
 
     private $date_add;
@@ -44,8 +43,7 @@ class GroupTrick
     /**
      * @var string|null
      * @var string A "Y-m-d H:i:s" formatted value
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Assert\DateTime()
+     * @ORM\Column(type="string", nullable=true)
      */
     private $date_upd;
 
