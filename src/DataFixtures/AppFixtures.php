@@ -45,7 +45,7 @@ class AppFixtures extends Fixture
                     $comment->setIsValid(rand(0,1));
 
                     $trick->addComment($comment);
-                    $manager->persist($image);
+                    $manager->persist($comment);
                 }
 
                 $manager->persist($trick);

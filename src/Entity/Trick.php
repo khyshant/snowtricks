@@ -75,7 +75,7 @@ class Trick
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="trick", orphanRemoval=true,cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="trick", orphanRemoval=true)
      */
     private $comments;
 
