@@ -9,6 +9,7 @@
 namespace App\Controller\Admin;
 
 Use App\Entity\Comment;
+use App\Entity\Trick;
 use App\Form\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,9 +32,11 @@ class AdminCommentController extends AbstractController
     {
         $comment = new Comment();
 
-        $form = $this->createForm(CommentTpe::class, $comment)->handleRequest($request);
+        $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $trick = new Trick(1);
+            $comment->setTrick($trick);
             $this->getDoctrine()->getManager()->persist($comment);
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute("comment_create");
