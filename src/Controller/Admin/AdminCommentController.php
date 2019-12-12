@@ -35,8 +35,6 @@ class AdminCommentController extends AbstractController
         $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $trick = new Trick(1);
-            $comment->setTrick($trick);
             $this->getDoctrine()->getManager()->persist($comment);
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute("comment_create");
