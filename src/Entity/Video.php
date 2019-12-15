@@ -27,7 +27,7 @@ class Video
     /*__________relations___________*/
     /**
      * @var Trick|null
-     * @ORM\ManyToOne(targetEntity="Trick", inversedBy="images")
+     * @ORM\ManyToOne(targetEntity="Trick", inversedBy="videos")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $trick;
