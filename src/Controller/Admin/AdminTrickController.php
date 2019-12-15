@@ -57,9 +57,10 @@ class AdminTrickController extends AbstractController
         $form = $this->createForm(TrickType::class, $trick)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->persist($trick);
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute("index");
+            return $this->redirectToRoute("trick_update",array('id' => $id));
         }
 
         return $this->render("admin/trick/update.html.twig", [

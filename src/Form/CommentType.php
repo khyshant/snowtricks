@@ -11,6 +11,7 @@ namespace App\Form;
 use App\Entity\Comment;
 use Symfony\Component\Form\AbstractType;
 
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,8 +30,13 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add("is_valid", TextType::class)
-            ->add("Comment", TextareaType::class)
+            ->add("is_valid", ChoiceType::class, array(
+                'expanded' => true,
+                'multiple' => false,
+                'choices' => array(
+                    'Approuvé' => 'true',
+                    'En attente' => 'false')))
+            ->add("comment", TextareaType::class)
         ;
     }
 

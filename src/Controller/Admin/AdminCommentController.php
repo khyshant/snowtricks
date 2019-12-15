@@ -52,12 +52,14 @@ class AdminCommentController extends AbstractController
      */
     public function update(Request $request, Comment $comment): Response
     {
-        $form = $this->createForm(CommentTpe::class, $comment)->handleRequest($request);
+        $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->persist($comment);
             $this->getDoctrine()->getManager()->flush();
+            $id = $comment->getId();
 
-            return $this->redirectToRoute("index");
+            return $this->redirectToRoute("comment_update",array('id' => $id));
         }
 
         return $this->render("admin/comment/update.html.twig", [
