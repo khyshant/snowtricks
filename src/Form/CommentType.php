@@ -34,8 +34,8 @@ class CommentType extends AbstractType
                 'expanded' => true,
                 'multiple' => false,
                 'choices' => array(
-                    'Approuvé' => 'true',
-                    'En attente' => 'false')))
+                    'Approuvé' => '1',
+                    'En attente' => '0')))
             ->add("comment", TextareaType::class)
         ;
     }

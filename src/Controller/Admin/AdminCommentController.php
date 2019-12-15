@@ -57,6 +57,7 @@ class AdminCommentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->persist($comment);
             $this->getDoctrine()->getManager()->flush();
+            dump($comment);
             $id = $comment->getId();
 
             return $this->redirectToRoute("comment_update",array('id' => $id));
