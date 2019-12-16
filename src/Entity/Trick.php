@@ -48,7 +48,7 @@ class Trick
      * @var boolean|null
      * @ORM\Column(type="boolean")
      */
-    private $is_valid;
+    private $isValid;
 
     /**
      * @var string
@@ -176,15 +176,15 @@ class Trick
      */
     public function getisValid(): ?bool
     {
-        return $this->is_valid;
+        return $this->isValid;
     }
 
     /**
-     * @param bool|null $is_valid
+     * @param bool|null $isValid
      */
-    public function setIsValid(?bool $is_valid): void
+    public function setIsValid(?bool $isValid): void
     {
-        $this->is_valid = $is_valid;
+        $this->isValid = $isValid;
     }
 
     /**

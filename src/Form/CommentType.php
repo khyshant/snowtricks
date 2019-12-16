@@ -30,7 +30,7 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add("is_valid", ChoiceType::class, array(
+            ->add("isvalid", ChoiceType::class, array(
                 'expanded' => true,
                 'multiple' => false,
                 'choices' => array(

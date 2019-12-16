@@ -26,7 +26,7 @@ class Comment
      * @var boolean|null
      * @ORM\Column(type="boolean")
      */
-    private $is_valid;
+    private $isValid;
     /**
      * @var string
      * @var string A "Y-m-d H:i:s" formatted value
@@ -109,15 +109,15 @@ class Comment
      */
     public function getisValid(): ?bool
     {
-        return $this->is_valid;
+        return $this->isValid;
     }
 
     /**
-     * @param bool|null $is_valid
+     * @param bool|null $isValid
      */
-    public function setIsValid(?bool $is_valid): void
+    public function setIsValid(?bool $isValid): void
     {
-        $this->is_valid = $is_valid;
+        $this->isValid = $isValid;
     }
 
 

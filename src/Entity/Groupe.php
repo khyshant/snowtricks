@@ -30,7 +30,7 @@ class Groupe
     /**
      * @ORM\Column(type="boolean")
      */
-    private $is_valid;
+    private $isValid;
 
     /**
      * @var string|null
@@ -143,15 +143,15 @@ class Groupe
      */
     public function getisValid()
     {
-        return $this->is_valid;
+        return $this->isValid;
     }
 
     /**
-     * @param mixed $is_valid
+     * @param mixed $isValid
      */
-    public function setIsValid($is_valid): void
+    public function setIsValid($isValid): void
     {
-        $this->is_valid = $is_valid;
+        $this->isValid = $isValid;
     }
 
 
