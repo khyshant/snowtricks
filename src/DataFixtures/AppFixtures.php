@@ -30,7 +30,7 @@ class AppFixtures extends Fixture
                 $trick->setMetadescription(sprintf("Metadescription N°%d", $j));
                 $trick->setDescription(sprintf("description N°%d", $j));
                 $trick->setIsValid(rand(0, 1));
-                $groupTrick->addTrick($trick);
+                $trick->setGroupTrick($groupTrick);
 
                 for ($k = 1; $k <= 10; $k++) {
                     $image = new Image();
