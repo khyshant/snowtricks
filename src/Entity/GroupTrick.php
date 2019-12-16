@@ -47,20 +47,12 @@ class GroupTrick
      */
     private $date_upd;
 
-    /*__________relations___________*/
-    /**
-     * @var Collection
-     * @ORM\ManyToMany(targetEntity="App\Entity\Trick", mappedBy="groupTricks")
-     */
-    private $tricks;
-    private $trick;
 
 
     /*__________construc___________*/
     public function __construct(){
         $this->setDateAdd(date("Y-m-d H:i:s")) ;
         $this->setDateUpd(date("Y-m-d H:i:s")) ;
-        $this->tricks = new ArrayCollection();
         $this->setIsValid(false) ;
     }
 
@@ -137,30 +129,6 @@ class GroupTrick
     /**
      * @return Collection|Trick[]
      */
-    public function getTricks(): Collection
-    {
-        return $this->tricks;
-    }
-
-    public function addTrick(Trick $trick): self
-    {
-        if (!$this->tricks->contains($trick)) {
-            $this->tricks[] = $trick;
-            $trick->addGroupTrick($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTrick(Trick $trick): self
-    {
-        if ($this->tricks->contains($trick)) {
-            $this->tricks->removeElement($trick);
-            $trick->removeGroupTrick($this);
-        }
-
-        return $this;
-    }
 
     /**
      * @param mixed $tricks
