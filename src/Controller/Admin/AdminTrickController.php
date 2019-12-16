@@ -59,7 +59,7 @@ class AdminTrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->persist($trick);
             $this->getDoctrine()->getManager()->flush();
-
+            $id = $trick->getId();
             return $this->redirectToRoute("trick_update",array('id' => $id));
         }
 
