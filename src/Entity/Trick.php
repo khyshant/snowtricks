@@ -67,9 +67,9 @@ class Trick
     private $author;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\GroupTrick")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Groupe")
      */
-    protected $groupTrick;
+    protected $Groupe;
 
     /**
      * @var Collection
@@ -238,17 +238,17 @@ class Trick
     /**
      * @return mixed
      */
-    public function getGroupTrick()
+    public function getGroupe()
     {
-        return $this->groupTrick;
+        return $this->Groupe;
     }
 
     /**
-     * @param mixed $groupTrick
+     * @param mixed $Groupe
      */
-    public function setGroupTrick(GroupTrick $groupTrick): void
+    public function setGroupe(Groupe $Groupe): void
     {
-        $this->groupTrick = $groupTrick;
+        $this->Groupe = $Groupe;
     }
 
 

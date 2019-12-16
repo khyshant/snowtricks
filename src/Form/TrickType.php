@@ -9,7 +9,7 @@
 namespace App\Form;
 
 use App\Entity\Trick;
-use App\Entity\GroupTrick;
+use App\Entity\Groupe;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -44,10 +44,10 @@ class TrickType extends AbstractType
             ->add("description", TextareaType::class)
             ->add("metatitle", TextType::class)
             ->add("metadescription", TextareaType::class)
-            ->add('groupTrick', EntityType::class, [
+            ->add('Groupe', EntityType::class, [
                 // looks for choices from this entity
                 'mapped' =>true,
-                'class' => GroupTrick::class,
+                'class' => Groupe::class,
                 // uses the User.username property as the visible option string
                 'choice_label' => 'name',
                 'multiple' => false,
