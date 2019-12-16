@@ -67,11 +67,9 @@ class Trick
     private $author;
 
     /**
-     * @var Collection
-     * @ORM\ManyToMany(targetEntity="App\Entity\GroupTrick", inversedBy="tricks")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Groupe")
      */
-    private $groupTricks;
-    protected $groupTrick;
+    protected $groupe;
 
     /**
      * @var Collection
@@ -100,7 +98,6 @@ class Trick
         $this->setIsValid(false) ;
         $this->images = new ArrayCollection();
         $this->videos = new ArrayCollection();
-        $this->groupTricks = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
 
@@ -239,30 +236,21 @@ class Trick
     }
 
     /**
-     * @return Collection|GroupTrick[]
+     * @return mixed
      */
-    public function getGroupTricks(): Collection
+    public function getGroupe()
     {
-        return $this->groupTricks;
+        return $this->groupe;
     }
 
-    public function addGroupTrick(GroupTrick $groupTrick): self
+    /**
+     * @param mixed $groupe
+     */
+    public function setGroupe(Groupe $groupe): void
     {
-        // Bidirectional Ownership
-        $groupTrick->addTrick($this);
-
-        $this->groupTricks[] = $groupTrick;
-        return $this;
+        $this->groupe = $groupe;
     }
 
-    public function removeGroupTrick(GroupTrick $groupTrick): self
-    {
-        if ($this->groupTrick->contains($groupTrick)) {
-            $this->groupTrick->removeElement($groupTrick);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Comment[]
