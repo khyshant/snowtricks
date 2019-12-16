@@ -44,7 +44,7 @@ class TrickType extends AbstractType
             ->add("description", TextareaType::class)
             ->add("metatitle", TextType::class)
             ->add("metadescription", TextareaType::class)
-            ->add('Groupe', EntityType::class, [
+            ->add('groupe', EntityType::class, [
                 // looks for choices from this entity
                 'mapped' =>true,
                 'class' => Groupe::class,

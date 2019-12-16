@@ -15,11 +15,11 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         for ($i=1; $i <= 5; $i++) {
-            $Groupe = new Groupe();
-            $Groupe->setName(sprintf("Groupe N°%d", $i));
-            $Groupe->setDescription(sprintf("Description Groupe N°%d", $i));
-            $Groupe->setDateAdd(date('Y-m-d H:i:s'));
-            $manager->persist($Groupe);
+            $groupe = new Groupe();
+            $groupe->setName(sprintf("Groupe N°%d", $i));
+            $groupe->setDescription(sprintf("Description Groupe N°%d", $i));
+            $groupe->setDateAdd(date('Y-m-d H:i:s'));
+            $manager->persist($groupe);
             $manager->flush();
 
             for ($j = 1; $j <= 30; $j++) {
@@ -30,7 +30,7 @@ class AppFixtures extends Fixture
                 $trick->setMetadescription(sprintf("Metadescription N°%d", $j));
                 $trick->setDescription(sprintf("description N°%d", $j));
                 $trick->setIsValid(rand(0, 1));
-                $trick->setGroupe($Groupe);
+                $trick->setGroupe($groupe);
 
                 for ($k = 1; $k <= 10; $k++) {
                     $image = new Image();

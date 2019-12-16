@@ -69,7 +69,7 @@ class Trick
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Groupe")
      */
-    protected $Groupe;
+    protected $groupe;
 
     /**
      * @var Collection
@@ -240,15 +240,15 @@ class Trick
      */
     public function getGroupe()
     {
-        return $this->Groupe;
+        return $this->groupe;
     }
 
     /**
-     * @param mixed $Groupe
+     * @param mixed $groupe
      */
-    public function setGroupe(Groupe $Groupe): void
+    public function setGroupe(Groupe $groupe): void
     {
-        $this->Groupe = $Groupe;
+        $this->groupe = $groupe;
     }
 
 
