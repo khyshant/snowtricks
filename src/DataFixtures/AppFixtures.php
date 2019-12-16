@@ -6,6 +6,7 @@ use App\Entity\Comment;
 use App\Entity\GroupTrick;
 use App\Entity\Image;
 use App\Entity\Trick;
+use App\Entity\Video;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -34,13 +35,19 @@ class AppFixtures extends Fixture
                 for ($k = 1; $k <= 10; $k++) {
                     $image = new Image();
                     $image->setPath("image.png");
-
                     $trick->addImage($image);
     //                $manager->persist($image);
                 }
-                for ($l = 1; $l <= 30; $l++) {
+
+                for ($l = 1; $l <= 10; $l++) {
+                    $video = new Video();
+                    $video->setUri("video.mp4");
+                    $trick->addVideo($video);
+                    //                $manager->persist($image);
+                }
+                for ($m = 1; $m <= 30; $m++) {
                     $comment = new Comment();
-                    $comment->setComment(sprintf("commentaire N°%d", $l));
+                    $comment->setComment(sprintf("commentaire N°%d", $m));
                     $comment->setTrick($trick);
                     $comment->setIsValid(rand(0,1));
 

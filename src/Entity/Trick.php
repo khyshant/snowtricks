@@ -87,13 +87,19 @@ class Trick
      */
     private $images;
 
+    /**
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Video", mappedBy="trick", orphanRemoval=true, cascade={"persist"})
+     */
     private $videos;
+
     /*__________construc___________*/
     public function __construct(){
         $this->setDateAdd(date("Y-m-d H:i:s")) ;
         $this->setDateUpdate(date("Y-m-d H:i:s")) ;
         $this->setIsValid(false) ;
         $this->images = new ArrayCollection();
+        $this->videos = new ArrayCollection();
         $this->groupTricks = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
@@ -321,11 +327,26 @@ class Trick
     }
 
     /**
-     * @return mixed
+     * @return Collection
      */
     public function getVideos()
     {
         return $this->videos;
+    }
+
+    /**
+     * @param Video $video
+     */
+    public function addVideo(Video $video)
+    {
+        $video->setTrick($this);
+        $this->videos->add($video);
+    }
+
+    public function removeVideo(Video $video)
+    {
+        $video->setTrick(null);
+        $this->videos->removeElement($video);
     }
 
     /**
