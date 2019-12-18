@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block title %}Snow tricks{% endblock %}
+{% block metadesc %}my meta-desc{% endblock %}
+{% block metatitle %}my meta-title{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        {{ block("slider", "parts/home_slider_block.html.twig") }}
+        {{ block("tricks", "parts/home_tricks_block.html.twig") }}
+    </div>
+{% endblock %}
