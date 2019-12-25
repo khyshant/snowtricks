@@ -1,6 +1,6 @@
 {% extends 'pages/home.html.twig' %}
 {% block tricks %}
-    <div class="d-flex justify-content-between m-b-2">
+    <div class="d-flex justify-content-between m-b-2 trick">
         <div class="card m-2 p-2">
             <a href="#" title="">
                 <img src="https://picsum.photos/1024/502" class="card-img-top" alt="...">
@@ -47,27 +47,16 @@
             <button class="btn btn-primary">see more</button>
         </div>
     </div>
-    <div class="d-flex justify-content-between m-b-2">
+    <div class="row m-b-2">
         {% for trick in tricks  %}
-        <div class="card m-2 p-2">
-
-                    <h3 class="text-center">{{ trick.title }}</h3>
-                    <img src="https://picsum.photos/1024/502" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">{{ trick.description|slice(0,50) }}...</p>
-                        <a class="float-right" href="{{ path('trick.show',{id:trick.id,slug: trick.slug}) }}" title="voir {{ trick.title }}">Voir plus</a>
-                    </div>
-
+        <div class="card col-sm-3 trick">
+            <h3 class="text-center">{{ trick.title }}</h3>
+            <img src="https://picsum.photos/1024/502" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text">{{ trick.description|slice(0,50) }}...</p>
+                <a class="float-right" href="{{ path('trick.show',{id:trick.id,slug: trick.slug}) }}" title="voir {{ trick.title }}">Voir plus</a>
             </div>
-            {% if loop.index is divisible by(4) and not loop.last %}
-                </div>
-
-                <div class="d-flex justify-content-between m-b-2">
-            {% elseif loop.last %}
-                </div>
-
-                <div class="d-flex justify-content-start m-b-2">
-            {% endif %}
+        </div>
         {% endfor %}
     </div>
 

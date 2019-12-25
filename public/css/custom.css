@@ -1,3 +1,41 @@
-.test{
-    color: #AA3333 ;
+.accroche{
+    position: absolute;
+    top: 45%;
+    bottom: 45%;
+    left: 25%;
+    right: 25%;
+    z-index: 2;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 50%;
+    text-align: center;
+    transition: opacity .15s ease;
+    color:#ffffff;
+    font-size:28px;
+    height:10%;
+    background-color:rgba(0,0,0,0.5);
+    font-weight:bolder
+}
+.custom-chevron a{
+    position : absolute;
+    height:30px;
+    width: 30px;
+    right:1vw;
+    z-index : 100;
+    background-color:rgba(0,0,0,0.5);
+    color:#ffffff;
+    text-align:center;
+}
+.custom-trick-block{
+    position:relative;
+}
+.custom-chevron-down a{
+    top: -5vh;
+}
+.custom-chevron-up a{
+    bottom: 5vh;
 }
