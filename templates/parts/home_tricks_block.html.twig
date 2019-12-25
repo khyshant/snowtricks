@@ -1,0 +1,63 @@
+{% extends 'pages/home.html.twig' %}
+{% block tricks %}
+    <div class="d-flex justify-content-between m-b-2 trick">
+        <div class="card m-2 p-2">
+            <a href="#" title="">
+                <img src="https://picsum.photos/1024/502" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </a>
+        </div>
+        <div class="card m-2 p-2">
+            <a href="#" title="">
+                <img src="https://picsum.photos/1024/502" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </a>
+        </div>
+        <div class="card m-2 p-2">
+            <a href="#" title="">
+                <img src="https://picsum.photos/1024/502" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </a>
+        </div>
+        <div class="card m-2 p-2">
+            <a href="#" title="">
+                <img src="https://picsum.photos/1024/502" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </a>
+        </div>
+        <div class="card m-2 p-2">
+            <a href="#" title="">
+                <img src="https://picsum.photos/1024/502" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-center">
+            <button class="btn btn-primary">see more</button>
+        </div>
+    </div>
+    <div class="row m-b-2">
+        {% for trick in tricks  %}
+        <div class="card col-sm-3 trick">
+            <h3 class="text-center">{{ trick.title }}</h3>
+            <img src="https://picsum.photos/1024/502" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text">{{ trick.description|slice(0,50) }}...</p>
+                <a class="float-right" href="{{ path('trick.show',{id:trick.id,slug: trick.slug}) }}" title="voir {{ trick.title }}">Voir plus</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

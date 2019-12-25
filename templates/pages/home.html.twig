@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block title %}Snow tricks{% endblock %}
+{% block metadesc %}my meta-desc{% endblock %}
+{% block metatitle %}my meta-title{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        {{ block("slider", "parts/home_slider_block.html.twig") }}
+    </div>
+    <div class="container-fluid custom-trick-block">
+        <span class="tricks-anchor" id="tricks"></span>
+        <div class="text-right custom-chevron custom-chevron-down">
+            <a href="#tricks"><i class="fas fa-chevron-down fa-2x chevron-down"></i></a>
+        </div>
+
+
+        {{ block("tricks", "parts/home_tricks_block.html.twig") }}
+
+        <div class="text-right  custom-chevron custom-chevron-up">
+            <a href="#tricks"><i class="fas fa-chevron-up fa-2x chevron-down"></i></a>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center m-3">
+                <a href="#" id="loadMoreTrick"><i class="fas fa-plus-circle fa-3x"></i></a>
+                <a href="#" id="loadLessTrick"><i class="fas fa-minus-circle fa-3x"></i></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
