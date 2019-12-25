@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @package App\Controller\Admin
  * @Route("/admin/comment")
  */
-class AdminCommentController extends AbstractController
+class CommentController extends AbstractController
 {
     /**
      * @Route("/create", name="comment_create")
