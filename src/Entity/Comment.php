@@ -28,9 +28,8 @@ class Comment
      */
     private $isValid;
     /**
-     * @var string
-     * @var string A "Y-m-d H:i:s" formatted value
-     * @ORM\Column(type="string", nullable=true)
+     * @var \DateTime|null
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $date_add;
 
@@ -85,7 +84,7 @@ class Comment
      */
     public function setDateAdd($date_add): void
     {
-        $this->date_add = $date_add;
+        $this->date_add = new \DateTime();
     }
 
     /**

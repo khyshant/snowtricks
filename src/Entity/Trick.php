@@ -51,16 +51,14 @@ class Trick
     private $isValid;
 
     /**
-     * @var string
-     * @var string A "Y-m-d H:i:s" formatted value
-     * @ORM\Column(type="string", nullable=true)
+     * @var \DateTime|null
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $date_add;
 
     /**
-     * @var string
-     * @var string A "Y-m-d H:i:s" formatted value
-     * @ORM\Column(type="string", nullable=true)
+     * @var \DateTime|null
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $date_update;
     /*__________relations___________*/
@@ -93,8 +91,8 @@ class Trick
 
     /*__________construc___________*/
     public function __construct(){
-        $this->setDateAdd(date("Y-m-d H:i:s")) ;
-        $this->setDateUpdate(date("Y-m-d H:i:s")) ;
+        $this->setDateAdd() ;
+        $this->setDateUpdate() ;
         $this->setIsValid(false) ;
         $this->images = new ArrayCollection();
         $this->videos = new ArrayCollection();
@@ -200,7 +198,7 @@ class Trick
      */
     public function setDateAdd($date_add): void
     {
-        $this->date_add = $date_add;
+        $this->date_add = new \DateTime();
     }
 
     /**
@@ -216,7 +214,7 @@ class Trick
      */
     public function setDateUpdate($date_update): void
     {
-        $this->date_update = $date_update;
+        $this->date_update = new \DateTime();
     }
 
     /**
