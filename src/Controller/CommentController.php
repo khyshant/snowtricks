@@ -6,7 +6,7 @@
  * Time: 00:16
  */
 
-namespace App\Controller\Admin;
+namespace App\Controller;
 
 Use App\Entity\Comment;
 use App\Entity\Trick;

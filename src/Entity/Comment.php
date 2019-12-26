@@ -31,7 +31,7 @@ class Comment
      * @var \DateTime|null
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $date_add;
+    private $dateAdd;
 
 
     /**
@@ -76,15 +76,15 @@ class Comment
      */
     public function getDateAdd()
     {
-        return $this->date_add;
+        return $this->dateAdd;
     }
 
     /**
-     * @param mixed $date_add
+     * @param mixed $dateAdd
      */
-    public function setDateAdd($date_add): void
+    public function setDateAdd($dateAdd): void
     {
-        $this->date_add = new \DateTime();
+        $this->dateAdd = new \DateTime();
     }
 
     /**
