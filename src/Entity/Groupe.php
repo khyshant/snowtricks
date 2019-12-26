@@ -49,8 +49,8 @@ class Groupe
 
     /*__________construc___________*/
     public function __construct(){
-        $this->setDateAdd(date("Y-m-d H:i:s")) ;
-        $this->setDateUpd(date("Y-m-d H:i:s")) ;
+        $this->setDateAdd() ;
+        $this->setDateUpd() ;
         $this->setIsValid(false) ;
     }
 
