@@ -60,7 +60,7 @@ class Trick
      * @var \DateTime|null
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $date_update;
+    private $dateUpdate;
     /*__________relations___________*/
     private $author;
 
@@ -206,15 +206,15 @@ class Trick
      */
     public function getDateUpdate()
     {
-        return $this->date_update;
+        return $this->dateUpdate;
     }
 
     /**
-     * @param mixed $date_update
+     * @param mixed $dateUpdate
      */
-    public function setDateUpdate($date_update): void
+    public function setDateUpdate($dateUpdate): void
     {
-        $this->date_update = new \DateTime();
+        $this->dateUpdate = new \DateTime();
     }
 
     /**
