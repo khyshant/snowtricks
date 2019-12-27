@@ -7,9 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\GroupeRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\GroupRepository")
+ * @ORM\Table(name="groupe")
  */
-class Groupe
+class Group
 {
     /**
      * @ORM\Id()

@@ -65,9 +65,9 @@ class Trick
     private $author;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Groupe")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Group")
      */
-    private $groupe;
+    private $group;
 
     /**
      * @var Collection
@@ -236,17 +236,17 @@ class Trick
     /**
      * @return mixed
      */
-    public function getGroupe()
+    public function getGroup()
     {
-        return $this->groupe;
+        return $this->group;
     }
 
     /**
-     * @param mixed $groupe
+     * @param mixed $group
      */
-    public function setGroupe(Groupe $groupe): void
+    public function setGroup(Group $group): void
     {
-        $this->groupe = $groupe;
+        $this->group = $group;
     }
 
 

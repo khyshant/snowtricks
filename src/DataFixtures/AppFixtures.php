@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Comment;
-use App\Entity\Groupe;
+use App\Entity\Group;
 use App\Entity\Image;
 use App\Entity\Trick;
 use App\Entity\Video;
@@ -15,11 +15,11 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         for ($i=1; $i <= 5; $i++) {
-            $groupe = new Groupe();
-            $groupe->setName(sprintf("Groupe N°%d", $i));
-            $groupe->setDescription(sprintf("Description Groupe N°%d", $i));
-            $groupe->setDateAdd(date('Y-m-d H:i:s'));
-            $manager->persist($groupe);
+            $group = new Group();
+            $group->setName(sprintf("Group N°%d", $i));
+            $group->setDescription(sprintf("Description Group N°%d", $i));
+            $group->setDateAdd(date('Y-m-d H:i:s'));
+            $manager->persist($group);
             $manager->flush();
 
             for ($j = 1; $j <= 30; $j++) {
@@ -30,7 +30,7 @@ class AppFixtures extends Fixture
                 $trick->setMetadescription(sprintf("Metadescription N°%d", $j));
                 $trick->setDescription(sprintf("description N°%d", $j));
                 $trick->setIsValid(rand(0, 1));
-                $trick->setGroupe($groupe);
+                $trick->setGroup($group);
 
                 for ($k = 1; $k <= 10; $k++) {
                     $image = new Image();

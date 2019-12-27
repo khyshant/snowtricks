@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Groupe;
+use App\Entity\Group;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method Groupe|null find($id, $lockMode = null, $lockVersion = null)
- * @method Groupe|null findOneBy(array $criteria, array $orderBy = null)
- * @method Groupe[]    findAll()
- * @method Groupe[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Group|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Group|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Group[]    findAll()
+ * @method Group[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class GroupeRepository extends ServiceEntityRepository
+class GroupRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Groupe::class);
+        parent::__construct($registry, Group::class);
     }
 
     // /**
-    //  * @return Groupe[] Returns an array of Groupe objects
+    //  * @return Group[] Returns an array of Group objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class GroupeRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Groupe
+    public function findOneBySomeField($value): ?Group
     {
         return $this->createQueryBuilder('g')
             ->andWhere('g.exampleField = :val')
