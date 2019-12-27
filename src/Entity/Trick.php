@@ -67,7 +67,7 @@ class Trick
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Groupe")
      */
-    protected $groupe;
+    private $groupe;
 
     /**
      * @var Collection
