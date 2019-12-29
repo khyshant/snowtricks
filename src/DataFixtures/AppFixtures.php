@@ -24,7 +24,7 @@ class AppFixtures extends Fixture
 
             for ($j = 1; $j <= 30; $j++) {
                 $trick = new Trick();
-                $trick->setTitle(sprintf("Saut N°%d", $j));
+                $trick->setTitle(sprintf("Saut N°%d_%d", $i$j,));
                 $trick->setDescription(sprintf("Description N°%d", $j));
                 $trick->setMetatitle(sprintf("Metatitle N°%d", $j));
                 $trick->setMetadescription(sprintf("Metadescription N°%d", $j));

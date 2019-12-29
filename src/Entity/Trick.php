@@ -21,7 +21,7 @@ class Trick
 
     /**
      * @var string|null
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string",unique=true)
      * @Assert\NotBlank
      */
     private $title;
