@@ -14,7 +14,7 @@ class GroupType extends AbstractType
     {
         $builder
             ->add('name', ChoiceType::class)
-            ->add('is_valid', ChoiceType::class)
+            ->add('valid', ChoiceType::class)
         ;
     }
 

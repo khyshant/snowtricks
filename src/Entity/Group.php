@@ -31,7 +31,7 @@ class Group
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isValid;
+    private $valid;
 
     /**
      * @var \DateTime|null
@@ -104,7 +104,7 @@ class Group
     /**
      * @param mixed $dateAdd
      */
-    public function setDateAdd($dateAdd): void
+    public function setDateAdd(): void
     {
         $this->dateAdd = new \DateTime();
     }
@@ -120,7 +120,7 @@ class Group
     /**
      * @param mixed $date_upd
      */
-    public function setDateUpd($date_upd): void
+    public function setDateUpd(): void
     {
         $this->date_upd = new \DateTime();
     }
@@ -140,17 +140,17 @@ class Group
     /**
      * @return mixed
      */
-    public function getisValid()
+    public function getvalid()
     {
-        return $this->isValid;
+        return $this->valid;
     }
 
     /**
-     * @param mixed $isValid
+     * @param mixed $valid
      */
-    public function setIsValid($isValid): void
+    public function setIsValid($valid): void
     {
-        $this->isValid = $isValid;
+        $this->valid = $valid;
     }
 
 

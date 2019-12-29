@@ -26,7 +26,7 @@ class Comment
      * @var boolean|null
      * @ORM\Column(type="boolean")
      */
-    private $isValid;
+    private $valid;
     /**
      * @var \DateTime|null
      * @ORM\Column(type="datetime", nullable=true)
@@ -106,17 +106,17 @@ class Comment
     /**
      * @return bool|null
      */
-    public function getisValid(): ?bool
+    public function getvalid(): ?bool
     {
-        return $this->isValid;
+        return $this->valid;
     }
 
     /**
-     * @param bool|null $isValid
+     * @param bool|null $valid
      */
-    public function setIsValid(?bool $isValid): void
+    public function setIsValid(?bool $valid): void
     {
-        $this->isValid = $isValid;
+        $this->valid = $valid;
     }
 
 

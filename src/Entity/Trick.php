@@ -48,7 +48,7 @@ class Trick
      * @var boolean|null
      * @ORM\Column(type="boolean")
      */
-    private $isValid;
+    private $valid;
 
     /**
      * @var \DateTime|null
@@ -172,17 +172,17 @@ class Trick
     /**
      * @return bool|null
      */
-    public function getisValid(): ?bool
+    public function getvalid(): ?bool
     {
-        return $this->isValid;
+        return $this->valid;
     }
 
     /**
-     * @param bool|null $isValid
+     * @param bool|null $valid
      */
-    public function setIsValid(?bool $isValid): void
+    public function setIsValid(?bool $valid): void
     {
-        $this->isValid = $isValid;
+        $this->valid = $valid;
     }
 
     /**
@@ -193,10 +193,7 @@ class Trick
         return $this->dateAdd;
     }
 
-    /**
-     * @param mixed $dateAdd
-     */
-    public function setDateAdd($dateAdd): void
+    public function setDateAdd(): void
     {
         $this->dateAdd = new \DateTime();
     }
@@ -209,10 +206,8 @@ class Trick
         return $this->dateUpdate;
     }
 
-    /**
-     * @param mixed $dateUpdate
-     */
-    public function setDateUpdate($dateUpdate): void
+
+    public function setDateUpdate(): void
     {
         $this->dateUpdate = new \DateTime();
     }
