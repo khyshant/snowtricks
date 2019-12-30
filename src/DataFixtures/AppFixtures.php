@@ -25,14 +25,13 @@ class AppFixtures extends Fixture
             for ($j = 1; $j <= 30; $j++) {
                 $trick = new Trick();
                 $trick->setTitle(sprintf("Saut N°%d_%d", $i,$j));
+                $trick->setSlug();
                 $trick->setDescription(sprintf("Description N°%d", $j));
                 $trick->setMetatitle(sprintf("Metatitle N°%d", $j));
                 $trick->setMetadescription(sprintf("Metadescription N°%d", $j));
                 $trick->setDescription(sprintf("description N°%d", $j));
                 $trick->setIsValid(rand(0, 1));
                 $trick->setGroup($group);
-                $manager->persist($trick);
-                $trick->setSlug();
 
                 for ($k = 1; $k <= 10; $k++) {
                     $image = new Image();

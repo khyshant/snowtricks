@@ -473,7 +473,7 @@ class Trick
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'u', 'v', 'w', 'y', 'z', 'ae', 'ch', 'kh', 'oe', 'sh', 'shh', 'ya', 'ye', 'yi', 'yo', 'yu', 'zh',
             '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-',  '-',  '-',
             );
-        return strtolower(preg_replace($patterns, $replacements, $this->getTitle()));
+        $this->slug =  strtolower(preg_replace($patterns, $replacements, $this->getTitle()));
     }
 
 
