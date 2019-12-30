@@ -31,6 +31,8 @@ class AppFixtures extends Fixture
                 $trick->setDescription(sprintf("description N°%d", $j));
                 $trick->setIsValid(rand(0, 1));
                 $trick->setGroup($group);
+                $manager->persist($trick);
+                $trick->setSlug();
 
                 for ($k = 1; $k <= 10; $k++) {
                     $image = new Image();
@@ -56,6 +58,7 @@ class AppFixtures extends Fixture
                 }
 
                 $manager->persist($trick);
+                $trick->setSlug();
             }
         }
 

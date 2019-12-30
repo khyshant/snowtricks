@@ -10,10 +10,10 @@ namespace App\Controller;
 
 use App\Entity\Trick;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\TrickRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TrickController extends AbstractController
@@ -27,7 +27,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/tricks", name="trick.list")
+     * @Route("/trick", name="trick.list")
      * @return Response
      */
     public function index(): Response
@@ -39,23 +39,24 @@ class TrickController extends AbstractController
      * @Route("/trick/{slug}", name="trick.show", requirements={"slug": "[a-z0-9\-]*"})
      * @return Response
      */
-    public function show(Trick $trick, string $slug): Response
+
+    /**
+     * @Route("/trick/{slug}", name="trick.show", requirements={"slug": "[a-z0-9\-]*"})
+     * @return Response
+     */
+    public function show( string $slug): Response
     {
 
-        // redirection vers le tricks en cas de modification du slug dans la barre d'url
-        if($trick->getSlug() !== $slug) {
-            return $this->redirectToRoute('trick.show',[
-                'slug'=> $trick->getSlug()
-                ],301);
-        }
+        $trick = $this->trickRepository->findBySlug($slug);
         return $this->render('pages/trick/show.html.twig', [
                 'trick' => $trick,
                 'current_menu'=>'home',
             ]
         );
     }
+
     /**
-     * @Route("/trick/create", name="trick_create")
+     * @Route("/create", name="trick_create")
      * @param Request $request
      * @return Response
      */
@@ -86,6 +87,7 @@ class TrickController extends AbstractController
     public function update(Request $request, Trick $trick): Response
     {
         $form = $this->createForm(TrickType::class, $trick)->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $id = $trick->getId();

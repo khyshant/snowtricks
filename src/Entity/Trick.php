@@ -28,6 +28,13 @@ class Trick
 
     /**
      * @var string|null
+     * @ORM\Column(type="string",unique=true)
+     * @Assert\NotBlank
+     */
+    private $slug;
+
+    /**
+     * @var string|null
      * @ORM\Column(type="text")
      */
     private $description;
@@ -88,6 +95,8 @@ class Trick
      * @ORM\OneToMany(targetEntity="Video", mappedBy="trick", orphanRemoval=true, cascade={"persist"})
      */
     private $videos;
+
+
 
     /*__________construc___________*/
     public function __construct(){
@@ -338,14 +347,21 @@ class Trick
         $this->videos = $videos;
     }
 
+    /**
+     * @return null|string
+     */
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
     // personnal function
     /**
      * Replace all accented chars by their equivalent non accented chars.
-     * @param string $str
      * @return string
      */
 
-    public function getSlug()
+    public function setSlug()
     {
         /* One source among others:
             http://www.tachyonsoft.com/uc0000.htm
