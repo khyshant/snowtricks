@@ -64,25 +64,43 @@
             $(this).parent('.custom-file').find('.custom-file-label').text(fileName);
         });
         $( document ).ready(function() {
-            $("div.trick").slice(5, $("div.trick").length).hide();
+            $("div.trick").slice(4, $("div.trick").length).hide();
         });
         $(function () {
-            $("div.trick").slice(0, 6).show();
+            if($("div.trick:visible").length <5){
+                $("#loadLessTrick").hide();
+            }
+            $("div.trick").slice(0, 4).show();
+            var full_length = $( ".trick:visible" ).length +  $( ".trick:hidden" ).length;
             $("#loadMoreTrick").on('click', function (e) {
                 e.preventDefault();
-                $("div.trick:hidden").slice(0, 6).slideDown();
-                if ($("div.trick:hidden").length == 0) {
-                    $("#loadMoreTrick").hide('slow');
-                    $("#loadLessTrick").show('slow');
+                $("div.trick:hidden").slice(0, 4).slideDown();
+                if(full_length > 4){
+                    $("#loadMoreTrick").show();
                 }
+                if(full_length == $("div.trick:visible").length){
+                    $("#loadMoreTrick").hide('slow');
+                }
+                if($("div.trick:visible").length > 4){
+                    $("#loadLessTrick").show();
+                }
+
             });
             $("#loadLessTrick").on('click', function (e) {
                 e.preventDefault();
-                $("div.trick").slice(6, $("div.trick").length).hide();
-                $("#loadLessTrick").hide('slow');
-                $("#loadMoreTrick").show('slow');
-
+                $("div.trick:visible").slice($("div.trick:visible").length-4, $("div.trick:visible").length).slideUp();
+                if(full_length > 4){
+                    $("#loadMoreTrick").show();
+                }
+                if(full_length == $("div.trick:visible").length){
+                    $("#loadMoreTrick").hide();
+                }
+                if($("div.trick:visible").length <= 4){
+                    $("#loadLessTrick").hide();
+                }
             });
+
+
         });
     </script>
 {% endblock %}

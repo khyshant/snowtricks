@@ -44,10 +44,9 @@ class TrickController extends AbstractController
      * @Route("/trick/{slug}", name="trick.show", requirements={"slug": "[a-z0-9\-]*"})
      * @return Response
      */
-    public function show( string $slug): Response
+    public function show( Trick $trick): Response
     {
 
-        $trick = $this->trickRepository->findBySlug($slug);
         return $this->render('pages/trick/show.html.twig', [
                 'trick' => $trick,
                 'current_menu'=>'home',

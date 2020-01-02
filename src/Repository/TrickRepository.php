@@ -48,16 +48,4 @@ class TrickRepository extends ServiceEntityRepository
     }
     */
 
-    /**
-     * @param $value
-     * @return Trick[]
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
-
-    public function findBySlug($value) :QueryBuilder
-    {
-        return $this->createQueryBuilder('t')
-            ->where('t.title = :val' )
-            ->setParameter('val', $value);
-    }
 }
