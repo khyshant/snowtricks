@@ -5,8 +5,37 @@
 
 {% block body %}
 
-    <div class="container-fluid">
-        <h1>{{ trick.title }}</h1>
+    <div class="container">
+        <img src="https://picsum.photos/1024/502" class="card-img-top" alt="...">
+        <h1 class="title-trick">{{ trick.title }}</h1>
+    </div>
+    <div class="container flex test">
+        {% for key,image in trick.images  %}
+            <a href="javascript(void)" class=" col-sm- col-md-2  "><img src="https://picsum.photos/1024/502" class="card-img-top trick_item" alt="..."></a>
+        {% endfor %}
+        {% for key,video in trick.videos  %}
+            <a  href="javascript(void)" class=" col-sm- col-md-2  "><img src="http://img.youtube.com/vi/7X8II6J-6mU/hqdefault.jpg" class="card-img-top trick_item"></a>
+        {% endfor %}
+    </div>
+    <div class="container my-3">
+        {{ trick.description }}
+        <div class="col-sm-2 text-center">Auteur</div>
+        {#
+        <div class="col-sm-2 text-center">{{ trick.group }}</div>
 
+        <div class="col-sm-2 text-center">{{ trick.dateUpdate }}</div>
+        #}
+        <div class="col-sm-2 text-center"></div>
+    </div>
+
+    <div class="container mx-auto row my-3 ">
+        {% for comment in trick.comments  %}
+            <div class=" col-sm-12 trick">
+                {#
+                <h3>{{ comment.dateAdd }}</h3>
+                #}
+                <p class="text-center">{{ comment.comment }}</p>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

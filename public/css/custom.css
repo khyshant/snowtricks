@@ -39,3 +39,17 @@
 .custom-chevron-up a{
     bottom: 5vh;
 }
+/* Flex */
+.flex {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: auto;
+}
+.flex-item {
+    flex: 0 0 auto;
+}
+
+::-webkit-scrollbar {
+    height: 4px;
+    scrollbar-highlight-color:black;
+} /* this targets the default scrollbar (compulsory) */

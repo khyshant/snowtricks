@@ -42,6 +42,16 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js" integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P" crossorigin="anonymous"></script>
     <script>
+        var left = 0;
+        var max_length = document.getElementsByClassName('trick_item').length;
+        function moveToLeft(item){
+            for ($i = 0 ; $i<=5; $i++){
+                $elem = document.getElementById(item+(left+$i)).style.display = "block";
+
+            }
+            left= left+1;
+            console.log(left)
+        }
         $(function()  {
             $(".btn-add").on("click", function () {
                 var placeholder = $($(this).data("target"));
@@ -65,11 +75,10 @@
         });
         $( document ).ready(function() {
             $("div.trick").slice(4, $("div.trick").length).hide();
+            $("div.trick_item").slice(4, $("div.trick_item").length).hide();
+
         });
         $(function () {
-            if($("div.trick:visible").length <5){
-                $("#loadLessTrick").hide();
-            }
             $("div.trick").slice(0, 4).show();
             var full_length = $( ".trick:visible" ).length +  $( ".trick:hidden" ).length;
             $("#loadMoreTrick").on('click', function (e) {
@@ -82,26 +91,16 @@
                     $("#loadMoreTrick").hide('slow');
                 }
                 if($("div.trick:visible").length > 4){
-                    $("#loadLessTrick").show();
+                    $("#loadLessTrick").show('slow');
                 }
-
-            });
-            $("#loadLessTrick").on('click', function (e) {
-                e.preventDefault();
-                $("div.trick:visible").slice($("div.trick:visible").length-4, $("div.trick:visible").length).slideUp();
-                if(full_length > 4){
-                    $("#loadMoreTrick").show();
-                }
-                if(full_length == $("div.trick:visible").length){
-                    $("#loadMoreTrick").hide();
-                }
-                if($("div.trick:visible").length <= 4){
+                else{
                     $("#loadLessTrick").hide();
                 }
+
             });
-
-
         });
+
+
     </script>
 {% endblock %}
 </body>
