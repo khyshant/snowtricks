@@ -35,7 +35,7 @@ class TrickType extends AbstractType
         $builder
 
             ->add("title", TextType::class)
-            ->add("isvalid", ChoiceType::class, array(
+            ->add("valid", ChoiceType::class, array(
                 'expanded' => true,
                 'multiple' => false,
                 'choices' => array(

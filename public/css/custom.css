@@ -41,6 +41,8 @@
 }
 /* Flex */
 .flex {
+    scrollbar-color: rgba(0,0,0,0.5) rgba(0,0,0,0.05);
+    scrollbar-width : thin;
     display: flex;
     flex-wrap: nowrap;
     overflow: auto;
@@ -53,3 +55,4 @@
     height: 4px;
     scrollbar-highlight-color:black;
 } /* this targets the default scrollbar (compulsory) */
+

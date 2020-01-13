@@ -9,7 +9,9 @@
 namespace App\Controller;
 
 use App\Entity\Trick;
+use App\Form\TrickType;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\TrickRepository;
@@ -39,11 +41,6 @@ class TrickController extends AbstractController
      * @Route("/trick/{slug}", name="trick.show", requirements={"slug": "[a-z0-9\-]*"})
      * @return Response
      */
-
-    /**
-     * @Route("/trick/{slug}", name="trick.show", requirements={"slug": "[a-z0-9\-]*"})
-     * @return Response
-     */
     public function show( Trick $trick): Response
     {
 
@@ -52,6 +49,17 @@ class TrickController extends AbstractController
                 'current_menu'=>'home',
             ]
         );
+    }
+
+    /**
+     * @Route("/delete/{slug}", name="trick.delete", requirements={"slug": "[a-z0-9\-]*"})
+     * @return Response
+     */
+    public function delete( Trick $trick): Response
+    {
+        $this->getDoctrine()->getManager()->remove($trick);
+        $this->getDoctrine()->getManager()->flush();
+        return $this->redirectToRoute('home');
     }
 
     /**

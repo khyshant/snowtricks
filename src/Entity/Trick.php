@@ -10,7 +10,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
- * @UniqueEntity("title")
+ * @UniqueEntity(
+ *     fields={"title", "slug"},
+ *     errorPath="slug",
+ *     message="Add a title for generate a slug needed by this object"
+ * )
  */
 class Trick
 {
@@ -130,6 +134,7 @@ class Trick
     public function setTitle(?string $title): void
     {
         $this->title = $title;
+        $this->setSlug();
     }
 
     /**

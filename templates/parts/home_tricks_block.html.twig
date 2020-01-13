@@ -10,6 +10,14 @@
                 <p class="card-text">{{ trick.description|slice(0,50) }}...</p>
                 <a class="float-right" href="{{ path('trick.show',{slug: trick.slug}) }}" title="voir {{ trick.title }}">Voir plus</a>
             </div>
+            {% if is_granted('ROLE_ADMIN') == false %}
+            <div class="card-footer mt-2 text-right">
+                <a class="mx-1" href="{{ path('trick_update',{id: trick.id}) }}"><i class="fa fa-pen" aria-hidden="true"></i>
+                </a>
+                <a class="mx-1" href="{{ path('trick.delete',{slug: trick.slug}) }}"><i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+            </div>
+        {% endif %}
         </div>
         {% endfor %}
     </div>
