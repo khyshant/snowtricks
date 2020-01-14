@@ -51,7 +51,7 @@ class TrickType extends AbstractType
                 // uses the User.username property as the visible option string
                 'choice_label' => 'name',
                 'multiple' => false,
-                'expanded' => true,])
+                'expanded' => false,])
             ->add("images", CollectionType::class, [
                 "entry_type" => ImageType::class,
                 "allow_add" => true,

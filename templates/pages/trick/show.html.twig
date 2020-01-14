@@ -11,10 +11,10 @@
     </div>
     <div class="container flex test">
         {% for key,image in trick.images  %}
-            <a href="javascript(void)" class=" col-sm- col-md-2  "><img src="https://picsum.photos/1024/502" class="card-img-top trick_item" alt="..."></a>
+            <a href="javascript(void)" class=" col-sm- col-md-2  " onclick="MoveOnCover('{{ image.path }}')"><img src="{{ asset('uploads/') }}{{ image.path }}" class="card-img-top trick_item" alt="..."></a>
         {% endfor %}
         {% for key,video in trick.videos  %}
-            <a  href="javascript(void)" class=" col-sm- col-md-2  "><img src="http://img.youtube.com/vi/7X8II6J-6mU/hqdefault.jpg" class="card-img-top trick_item"></a>
+            <a  target="_blank" href="{{ video.uri }}" class=" col-sm- col-md-2  "><img src="{{ asset('uploads/video-logo.jpg') }}" class="card-img-top trick_item"></a>
         {% endfor %}
     </div>
     <div class="container my-3">
