@@ -35,12 +35,12 @@ class TrickType extends AbstractType
         $builder
 
             ->add("title", TextType::class)
-            ->add("valid", ChoiceType::class, array(
+            /*->add("valid", ChoiceType::class, array(
                 'expanded' => true,
                 'multiple' => false,
                 'choices' => array(
                     'Approuvé' => '1',
-                    'En attente' => '0')))
+                    'En attente' => '0')))*/
             ->add("description", TextareaType::class)
             ->add("metatitle", TextType::class)
             ->add("metadescription", TextareaType::class)
