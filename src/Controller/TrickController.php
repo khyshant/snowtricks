@@ -8,7 +8,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Trick;
+use App\Form\CommentType;
 use App\Form\TrickType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -41,14 +43,23 @@ class TrickController extends AbstractController
      * @Route("/trick/{slug}", name="trick.show", requirements={"slug": "[a-z0-9\-]*"})
      * @return Response
      */
-    public function show( Trick $trick): Response
+    public function show(Trick $trick, Comment $comment,Request $request): Response
     {
+        $form = $this->createForm(TrickType::class, $trick, [
+            "validation_groups" => ["Default", "add"]
+        ])->handleRequest($request);
+        $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $slug = $trick->getSlug();
+            return $this->redirectToRoute("trick.show",array('slug' => $slug));
+        }
 
         return $this->render('pages/trick/show.html.twig', [
-                'trick' => $trick,
-                'current_menu'=>'home',
-            ]
-        );
+            'trick' => $trick,
+            'current_menu'=>'home',
+            "form" => $form->createView()
+        ]);
     }
 
     /**

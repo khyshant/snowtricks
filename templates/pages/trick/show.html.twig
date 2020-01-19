@@ -32,7 +32,16 @@
         </div>
     </div>
     {% if is_granted('ROLE_ADMIN') == false %}
-        {{ include("admin/comment/_form.html.twig") }}
+        {{ form_start(form) }}
+        {{ form_widget(form._token) }}
+        <div class="card-body">
+            {{ include("admin/comment/_form.html.twig") }}
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-block btn-lg btn-primary">Modifier</button>
+        </div>
+        {{ form_end(form, { render_rest: false }) }}
+
     {% endif %}
     <div class="container mx-auto row my-3 ">
         {% for comment in trick.comments  %}
