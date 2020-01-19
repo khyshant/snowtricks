@@ -11,26 +11,38 @@
     </div>
     <div class="container flex test">
         {% for key,image in trick.images  %}
-            <a href="javascript(void)" class=" col-sm- col-md-2  "><img src="https://picsum.photos/1024/502" class="card-img-top trick_item" alt="..."></a>
+            <a href="javascript(void)" class=" col-sm- col-md-2  " onclick="MoveOnCover('{{ image.path }}')"><img src="{{ asset('uploads/') }}{{ image.path }}" class="card-img-top trick_item" alt="..."></a>
         {% endfor %}
         {% for key,video in trick.videos  %}
-            <a  href="javascript(void)" class=" col-sm- col-md-2  "><img src="http://img.youtube.com/vi/7X8II6J-6mU/hqdefault.jpg" class="card-img-top trick_item"></a>
+            <a  target="_blank" href="{{ video.uri }}" class=" col-sm- col-md-2  "><img src="{{ asset('uploads/video-logo.jpg') }}" class="card-img-top trick_item"></a>
         {% endfor %}
     </div>
     <div class="container my-3">
         {{ trick.description }}
+
+
+        <div class="flex my-3">
+            <div class="col-sm-2 mx-auto bg-secondary text-white text-center">Auteur</div>
+
+            <div class="col-sm-2 mx-auto bg-secondary text-white text-center">Groupe : {{ trick.group.name}}</div>
+
+            <div class="col-sm-2 mx-auto bg-secondary text-white text-center">Créé le : {{ trick.dateAdd|date('Y-m-d') }}</div>
+
+            <div class="col-sm-2 mx-auto bg-secondary text-white text-center">Dernière modification : {{ trick.dateUpdate|date('Y-m-d') }}</div>
+        </div>
     </div>
+    {% if is_granted('ROLE_ADMIN') == false %}
+        {{ form_start(form) }}
+        {{ form_widget(form._token) }}
+        <div class="card-body">
+            {{ include("admin/comment/_form.html.twig") }}
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-block btn-lg btn-primary">Modifier</button>
+        </div>
+        {{ form_end(form, { render_rest: false }) }}
 
-    <div class="container my-3">
-        <div class="col-sm-2 text-center">Auteur</div>
-
-        <div class="col-sm-2 text-center">{{ trick.group.name}}</div>
-
-        <div class="col-sm-2 text-center">{{ trick.dateAdd|date('Y-m-d') }}</div>
-
-        <div class="col-sm-2 text-center">{{ trick.dateUpdate|date('Y-m-d') }}</div>
-    </div>
-
+    {% endif %}
     <div class="container mx-auto row my-3 ">
         {% for comment in trick.comments  %}
             <div class=" col-sm-12 trick">

@@ -35,12 +35,12 @@ class TrickType extends AbstractType
         $builder
 
             ->add("title", TextType::class)
-            ->add("valid", ChoiceType::class, array(
+            /*->add("valid", ChoiceType::class, array(
                 'expanded' => true,
                 'multiple' => false,
                 'choices' => array(
                     'Approuvé' => '1',
-                    'En attente' => '0')))
+                    'En attente' => '0')))*/
             ->add("description", TextareaType::class)
             ->add("metatitle", TextType::class)
             ->add("metadescription", TextareaType::class)
@@ -51,7 +51,7 @@ class TrickType extends AbstractType
                 // uses the User.username property as the visible option string
                 'choice_label' => 'name',
                 'multiple' => false,
-                'expanded' => true,])
+                'expanded' => false,])
             ->add("images", CollectionType::class, [
                 "entry_type" => ImageType::class,
                 "allow_add" => true,
