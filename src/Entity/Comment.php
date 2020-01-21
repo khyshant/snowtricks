@@ -17,12 +17,6 @@ class Comment
     private $id;
 
     /**
-     * @var string|null
-     * @ORM\Column(type="text")
-     */
-    private $comment;
-
-    /**
      * @var boolean|null
      * @ORM\Column(type="boolean")
      */
@@ -35,11 +29,15 @@ class Comment
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="comments",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
     private $author;
 
     /*__________construc___________*/
@@ -117,6 +115,22 @@ class Comment
     public function setIsValid(?bool $valid): void
     {
         $this->valid = $valid;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param mixed $author
+     */
+    public function setAuthor($author): void
+    {
+        $this->author = $author;
     }
 
 

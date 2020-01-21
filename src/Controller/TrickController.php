@@ -43,11 +43,9 @@ class TrickController extends AbstractController
      * @Route("/trick/{slug}", name="trick.show", requirements={"slug": "[a-z0-9\-]*"})
      * @return Response
      */
-    public function show(Trick $trick, Comment $comment,Request $request): Response
+    public function show(Trick $trick, Request $request): Response
     {
-        $form = $this->createForm(TrickType::class, $trick, [
-            "validation_groups" => ["Default", "add"]
-        ])->handleRequest($request);
+        $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
