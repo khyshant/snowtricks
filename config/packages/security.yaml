@@ -14,10 +14,10 @@ security:
             anonymous: lazy
             pattern:      ^/
             form_login:
-                login_path: security_login
-                check_path: security_login
+                login_path: login
+                check_path: login
             logout:
-                path:       security_logout
+                path:       logout
                 target:     home
 
             # activate different ways to authenticate

@@ -27,6 +27,11 @@ class Comment
      */
     private $dateAdd;
 
+    /**
+     * @var string|null
+     * @ORM\Column(type="text")
+     */
+    private $comment;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="comments",cascade={"persist"})

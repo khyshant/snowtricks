@@ -45,7 +45,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/login", name="security_login")
+     * @Route("/login", name="login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -62,7 +62,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/logout", name="security_logout")
+     * @Route("/logout", name="logout")
      */
     public function logout(): void
     {

@@ -48,6 +48,7 @@ class TrickController extends AbstractController
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
             $this->getDoctrine()->getManager()->flush();
             $slug = $trick->getSlug();
             return $this->redirectToRoute("trick.show",array('slug' => $slug));

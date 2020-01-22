@@ -15,7 +15,7 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        for ($h=1; $h <= 5; $h++) {
+        for ($h=1; $h <= 2; $h++) {
             $group = new Group();
             $group->setName(sprintf("Group N°%d", $h));
             $group->setDescription(sprintf("Description Group N°%d", $h));
@@ -23,7 +23,7 @@ class AppFixtures extends Fixture
             $manager->persist($group);
             $manager->flush();
 
-            for ($i = 1; $i <= 4; $i++){
+            for ($i = 1; $i <= 2; $i++){
                 $trickAuthor = new User();
                 $trickAuthor->setUsername(sprintf("user%d_%d", $i,$h));
                 $trickAuthor->setEmail(sprintf("user%d_%d@toto.fr", $i,$h));
@@ -32,7 +32,7 @@ class AppFixtures extends Fixture
                 $manager->persist($trickAuthor);
                 $manager->flush();
 
-                for ($j = 1; $j <= 30; $j++) {
+                for ($j = 1; $j <= 5; $j++) {
                     $trick = new Trick();
                     $trick->setTitle(sprintf("Saut N°%d_%d_%d", $h,$j,$i));
                     $trick->setSlug();
@@ -44,26 +44,27 @@ class AppFixtures extends Fixture
                     $trick->setAuthor($trickAuthor);
                     $trick->setGroup($group);
 
-                    for ($k = 1; $k <= 10; $k++) {
+                    for ($k = 1; $k <= 2; $k++) {
                         $image = new Image();
                         $image->setPath("image.png");
                         $trick->addImage($image);
         //                $manager->persist($image);
                     }
 
-                    for ($l = 1; $l <= 10; $l++) {
+                    for ($l = 1; $l <= 2; $l++) {
                         $video = new Video();
                         $video->setUri("video.mp4");
                         $trick->addVideo($video);
                         //                $manager->persist($image);
+                        $manager->flush();
                     }
-                    for ($m = 1; $m <= 30; $m++) {
+                    for ($m = 1; $m <= 10; $m++) {
                         $comment = new Comment();
                         $comment->setComment(sprintf("commentaire N°%d", $m));
                         $comment->setTrick($trick);
                         $comment->setIsValid(rand(0,1));
 
-                        if($m <= 5){
+                        if($m <= 2){
                             $comment->setAuthor($trickAuthor);
                         }
                         else {
@@ -84,8 +85,9 @@ class AppFixtures extends Fixture
                         $trick->addComment($comment);
                         $manager->persist($comment);
                     }
-                    $manager->persist($trick);
                     $trick->setSlug();
+                    $manager->persist($trick);
+
                 }
             }
         }
