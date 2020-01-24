@@ -47,13 +47,17 @@ class TrickController extends AbstractController
     {
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        $user = $this->getUser();
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setTrick($trick);
+            $comment->setAuthor($user);
+            $this->getDoctrine()->getManager()->persist($comment);
             $this->getDoctrine()->getManager()->flush();
             $slug = $trick->getSlug();
             return $this->redirectToRoute("trick.show",array('slug' => $slug));
         }
-
+        dump($form);
         return $this->render('pages/trick/show.html.twig', [
             'trick' => $trick,
             'current_menu'=>'home',
