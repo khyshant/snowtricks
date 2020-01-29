@@ -77,12 +77,13 @@ class HomeController extends AbstractController
      */
     public function createUser(Request $request): Response
     {
-        $form = $this->createForm(UserType::class)->handleRequest($request);
         $user = new User();
+        $form = $this->createForm(UserType::class,$user)->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->persist($user);
             $this->getDoctrine()->getManager()->flush();
-            $this->sendMail($user);
+            //$this->sendMail($user);
             return $this->redirectToRoute("home");
         }
         return $this->render('pages/login/create_form.html.twig', [
