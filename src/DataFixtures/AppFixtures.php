@@ -10,9 +10,24 @@ use App\Entity\User;
 use App\Entity\Video;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-class AppFixtures extends Fixture
-{
+
+class AppFixtures extends Fixture {
+/**
+* @var UserPasswordEncoderInterface
+ */
+private $userPasswordEncoder;
+
+/**
+ * @param UserPasswordEncoderInterface $UserPasswordEncoder
+ * */
+    public function __construct(UserPasswordEncoderInterface $userPasswordEncoder)
+    {
+        $this->userPasswordEncoder = $userPasswordEncoder;
+    }
+
     public function load(ObjectManager $manager)
     {
         for ($h=1; $h <= 2; $h++) {
@@ -28,7 +43,7 @@ class AppFixtures extends Fixture
                 $trickAuthor->setUsername(sprintf("user%d_%d", $i,$h));
                 $trickAuthor->setEmail(sprintf("user%d_%d@toto.fr", $i,$h));
                 $trickAuthor->setActivated(1);
-                $trickAuthor->setPassword('userpass');
+                $trickAuthor->setPassword($this->userPasswordEncoder->encodePassword($trickAuthor,'userpass'));
                 $manager->persist($trickAuthor);
                 $manager->flush();
 
@@ -77,7 +92,7 @@ class AppFixtures extends Fixture
                             $author->setUsername(sprintf("user%d_%s",$i, $token));
                             $author->setEmail(sprintf("user%d_%s@toto.fr", $i,$token));
                             $author->setActivated(1);
-                            $author->setPassword('userpass');
+                            $author->setPassword($this->userPasswordEncoder->encodePassword($author,'userpass'));
                             $manager->persist($author);
                             $manager->flush();
                             $comment->setAuthor($author);

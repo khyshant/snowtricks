@@ -9,7 +9,10 @@
 namespace App\Controller;
 
 use App\Entity\Trick;
+use App\Entity\User;
+use App\Form\UserType;
 use App\Repository\TrickRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -67,5 +70,23 @@ class HomeController extends AbstractController
     public function logout(): void
     {
         throw new \Exception('This should never be reached!');
+    }
+
+    /**
+     * @Route("/create-account", name="createUser")
+     */
+    public function createUser(Request $request): Response
+    {
+        $form = $this->createForm(UserType::class)->handleRequest($request);
+        $user = new User();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->persist($user);
+            $this->getDoctrine()->getManager()->flush();
+            $this->sendMail($user);
+            return $this->redirectToRoute("home");
+        }
+        return $this->render('pages/login/create_form.html.twig', [
+            "form" => $form->createView()
+        ]);
     }
 }

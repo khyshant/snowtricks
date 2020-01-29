@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<div class="container">
+    {{ form_row(form.username) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.password) }}
+    <button class="btn btn-block btn-lg btn-primary">Créer</button>
+</div>
+{% endblock %}
