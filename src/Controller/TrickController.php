@@ -43,18 +43,20 @@ class TrickController extends AbstractController
      * @Route("/trick/{slug}", name="trick.show", requirements={"slug": "[a-z0-9\-]*"})
      * @return Response
      */
-    public function show(Trick $trick, Comment $comment,Request $request): Response
+    public function show(Trick $trick, Request $request): Response
     {
-        $form = $this->createForm(TrickType::class, $trick, [
-            "validation_groups" => ["Default", "add"]
-        ])->handleRequest($request);
+        $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
+        $user = $this->getUser();
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setTrick($trick);
+            $comment->setAuthor($user);
+            $this->getDoctrine()->getManager()->persist($comment);
             $this->getDoctrine()->getManager()->flush();
             $slug = $trick->getSlug();
             return $this->redirectToRoute("trick.show",array('slug' => $slug));
         }
-
         return $this->render('pages/trick/show.html.twig', [
             'trick' => $trick,
             'current_menu'=>'home',
