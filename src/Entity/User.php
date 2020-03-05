@@ -59,11 +59,6 @@ class User implements UserInterface
      */
     private $comments;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $activated;
-
 
     public function getId(): ?int
     {
@@ -80,7 +75,7 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -141,21 +136,6 @@ class User implements UserInterface
     }
 
 
-    /**
-     * @return mixed
-     */
-    public function getActivated()
-    {
-        return $this->activated;
-    }
-
-    /**
-     * @param mixed $activated
-     */
-    public function setActivated($activated): void
-    {
-        $this->activated = $activated;
-    }
 
 // add by userInterface
 
