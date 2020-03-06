@@ -50,11 +50,11 @@ class HomeController extends AbstractController
         return $this->render('pages/home.html.twig', [
                 'tricks' => $tricks,
                 'current_menu'=>'home',
-                'totat_posts'=>'$totalPosts',
-                'iterator'=>'$iterator',
-                'totalpostsreturned'=>'$totalPostsReturned',
-                'max_page'=>'$maxPages',
-                'current_page'=>'$thisPage',
+                'total_posts'=>$totalPosts,
+                'iterator'=>$iterator,
+                'totalpostsreturned'=>$totalPostsReturned,
+                'max_page'=>$maxPages,
+                'current_page'=>$thisPage,
             ]
         );
     }

@@ -59,7 +59,6 @@ class TrickRepository extends ServiceEntityRepository
     {
         // Create our query
         $query = $this->createQueryBuilder('t')
-            ->orderBy('date_add')
             ->getQuery();
 
         // No need to manually get get the result ($query->getResult())
@@ -75,7 +74,7 @@ class TrickRepository extends ServiceEntityRepository
      * @param int $limit
      * @return Paginator
      */
-    public function paginate($dql, $page = 1, $limit = 5)
+    public function paginate($dql, $page = 1, $limit = 4)
     {
         $paginator = new Paginator($dql);
 
