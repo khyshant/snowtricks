@@ -35,14 +35,26 @@ class HomeController extends AbstractController
      * @Route("/", name="home")
      * @return Response
      */
-    public function index(): Response
+    public function index($page = 1): Response
     {
         //initialisation du repository demandé
-        $tricks = $this->trickrepository->findAll();
+        $tricks = $this->trickrepository->getAllTricks($page);
+        $totalPostsReturned = $tricks->getIterator()->count();
+        $totalPosts = $tricks->count();
+        $iterator = $tricks->getIterator()  ;
+        $limit = 5;
+        $maxPages = ceil($tricks->count() / $limit);
+        $thisPage = $page;
+        // Pass through the 3 above variables to calculate pages in twig
 
         return $this->render('pages/home.html.twig', [
                 'tricks' => $tricks,
                 'current_menu'=>'home',
+                'totat_posts'=>'$totalPosts',
+                'iterator'=>'$iterator',
+                'totalpostsreturned'=>'$totalPostsReturned',
+                'max_page'=>'$maxPages',
+                'current_page'=>'$thisPage',
             ]
         );
     }

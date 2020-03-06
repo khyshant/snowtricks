@@ -5,6 +5,9 @@ namespace App\Repository;
 use App\Entity\Trick;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
+
 
 /**
  * @method Trick|null find($id, $lockMode = null, $lockVersion = null)
@@ -48,4 +51,38 @@ class TrickRepository extends ServiceEntityRepository
     }
     */
 
+    /**
+     * @param int $currentPage
+     * @return Paginator
+     */
+    public function getAllTricks($currentPage = 1)
+    {
+        // Create our query
+        $query = $this->createQueryBuilder('t')
+            ->orderBy('date_add')
+            ->getQuery();
+
+        // No need to manually get get the result ($query->getResult())
+
+        $paginator = $this->paginate($query, $currentPage);
+
+        return $paginator;
+    }
+
+    /**
+     * @param $dql
+     * @param int $page
+     * @param int $limit
+     * @return Paginator
+     */
+    public function paginate($dql, $page = 1, $limit = 5)
+    {
+        $paginator = new Paginator($dql);
+
+        $paginator->getQuery()
+            ->setFirstResult($limit * ($page - 1)) // Offset
+            ->setMaxResults($limit); // Limit
+
+        return $paginator;
+    }
 }
