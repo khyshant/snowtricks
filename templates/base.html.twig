@@ -85,43 +85,38 @@
             $(this).parent('.custom-file').find('.custom-file-label').text(fileName);
         });
         $( document ).ready(function() {
-            $("div.trick").slice(4, $("div.trick").length).hide();
-            $("div.trick_item").slice(4, $("div.trick_item").length).hide();
+            let page = 1;
+            console.log(page);
+            $('#trick_description').summernote(
+                {
+                    placeholder: 'Saisissez ici votre chapo et mettez le en page',
+                }
+            );
+            $('#trick_metadescription').summernote(
+                {
+                    placeholder: 'Saisissez ici votre contenu et mettez le en page Pas d\'image',
+                }
+            );
+            $("#loadMoreTrick").click(function(){
+                page++;
+                console.log(page);
+                $.ajax({
+                    url : "{{ path('moretricks') }}",
+                    type : 'POST',
+                    data : 'page='+page,
+                    dataType : 'html',
+                    success : function(code_html, statut){
+                        $("#forTricks").append(code_html);
+                    },
 
-        });
-        $(function () {
-            $("div.trick").slice(0, 4).show();
-            var full_length = $( ".trick:visible" ).length +  $( ".trick:hidden" ).length;
-            $("#loadMoreTrick").on('click', function (e) {
-                e.preventDefault();
-                $("div.trick:hidden").slice(0, 4).slideDown();
-                if(full_length > 4){
-                    $("#loadMoreTrick").show();
-                }
-                if(full_length == $("div.trick:visible").length){
-                    $("#loadMoreTrick").hide('slow');
-                }
-                if($("div.trick:visible").length > 4){
-                    $("#loadLessTrick").show('slow');
-                }
-                else{
-                    $("#loadLessTrick").hide();
-                }
+                    error : function(resultat, statut, erreur){
+                        $("#loadMoreTrick").hide('slow');
+                    },
+                });
 
             });
         });
-        $( document ).ready(function() {
-        $('#trick_description').summernote(
-            {
-                placeholder: 'Saisissez ici votre chapo et mettez le en page',
-            }
-        );
-        $('#trick_metadescription').summernote(
-            {
-                placeholder: 'Saisissez ici votre contenu et mettez le en page Pas d\'image',
-            }
-        );
-        })
+
     </script>
 {% endblock %}
 </body>

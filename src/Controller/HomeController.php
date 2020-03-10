@@ -35,26 +35,43 @@ class HomeController extends AbstractController
      * @Route("/", name="home")
      * @return Response
      */
-    public function index($page = 1): Response
+    public function index(): Response
     {
         //initialisation du repository demandé
-        $tricks = $this->trickrepository->getAllTricks($page);
-        $totalPostsReturned = $tricks->getIterator()->count();
-        $totalPosts = $tricks->count();
-        $iterator = $tricks->getIterator()  ;
-        $limit = 5;
-        $maxPages = ceil($tricks->count() / $limit);
-        $thisPage = $page;
+        $tricks = $this->trickrepository->getAllTricks(1);
+        //$totalPostsReturned = $tricks->getIterator()->count();
+        //$totalPosts = $tricks->count();
+        //$iterator = $tricks->getIterator()  ;
+        $limit = 4;
+        //$maxPages = ceil($tricks->count() / $limit);
         // Pass through the 3 above variables to calculate pages in twig
 
         return $this->render('pages/home.html.twig', [
                 'tricks' => $tricks,
                 'current_menu'=>'home',
-                'total_posts'=>$totalPosts,
+                /*'total_posts'=>$totalPosts,
                 'iterator'=>$iterator,
                 'totalpostsreturned'=>$totalPostsReturned,
                 'max_page'=>$maxPages,
-                'current_page'=>$thisPage,
+                'current_page'=>$thisPage,*/
+            ]
+        );
+    }
+
+    /**
+     * @Route("/moretricks", name="moretricks", methods={"POST"})
+     *
+     * @param $page
+     * @return Response
+     */
+    public function moreTrick($page = 1): Response
+    {
+        dump($page);
+        $tricks = $this->trickrepository->getAllTricks($page);
+        $limit = 4;
+
+        return $this->render('parts/fortricks.html.twig', [
+                'tricks' => $tricks,
             ]
         );
     }

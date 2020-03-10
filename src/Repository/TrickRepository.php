@@ -55,7 +55,7 @@ class TrickRepository extends ServiceEntityRepository
      * @param int $currentPage
      * @return Paginator
      */
-    public function getAllTricks($currentPage = 1)
+    public function getAllTricks($currentPage)
     {
         // Create our query
         $query = $this->createQueryBuilder('t')
@@ -74,10 +74,10 @@ class TrickRepository extends ServiceEntityRepository
      * @param int $limit
      * @return Paginator
      */
-    public function paginate($dql, $page = 1, $limit = 4)
+    public function paginate($dql, $page, $limit = 4)
     {
         $paginator = new Paginator($dql);
-
+        dump($page);
         $paginator->getQuery()
             ->setFirstResult($limit * ($page - 1)) // Offset
             ->setMaxResults($limit); // Limit
