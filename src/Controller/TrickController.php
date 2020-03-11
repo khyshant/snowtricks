@@ -12,6 +12,7 @@ use App\Entity\Comment;
 use App\Entity\Trick;
 use App\Form\CommentType;
 use App\Form\TrickType;
+use App\Handler\TrickHandler;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -77,23 +78,16 @@ class TrickController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function create(Request $request): Response
+    public function create(Request $request,TrickHandler $handler): Response
     {
         $trick = new Trick();
-
-        $form = $this->createForm(TrickType::class, $trick, [
-            "validation_groups" => ["Default", "add"]
-        ])->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->persist($trick);
-            $this->getDoctrine()->getManager()->flush();
-
+        if($handler->handle($request, $trick, ["validation_groups" => ["Default", "add"]        ]
+        )) {
             return $this->redirectToRoute("trick_create");
         }
 
         return $this->render("admin/trick/create.html.twig", [
-            "form" => $form->createView()
+            "form" => $handler->createView()
         ]);
     }
     /**

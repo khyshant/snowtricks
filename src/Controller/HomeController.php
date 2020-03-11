@@ -59,13 +59,14 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/moretricks", name="moretricks", methods={"POST"})
+     * @Route("/moretricks", name="moretricks")
      *
      * @param $page
      * @return Response
      */
-    public function moreTrick($page = 1): Response
+    public function moreTrick(Request $request): Response
     {
+        $page = $request->query->getInt("page");
         dump($page);
         $tricks = $this->trickrepository->getAllTricks($page);
         $limit = 4;
