@@ -69,15 +69,14 @@ class TrickRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param $dql
+     * @param $sql
      * @param int $page
      * @param int $limit
      * @return Paginator
      */
-    public function paginate($dql, $page, $limit = 4)
+    public function paginate($sql, $page, $limit = 4)
     {
-        $paginator = new Paginator($dql);
-        dump($page);
+        $paginator = new Paginator($sql);
         $paginator->getQuery()
             ->setFirstResult($limit * ($page - 1)) // Offset
             ->setMaxResults($limit); // Limit

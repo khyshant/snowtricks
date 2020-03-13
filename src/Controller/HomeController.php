@@ -67,7 +67,6 @@ class HomeController extends AbstractController
     public function moreTrick(Request $request): Response
     {
         $page = $request->query->getInt("page");
-        dump($page);
         $tricks = $this->trickrepository->getAllTricks($page);
         $limit = 4;
 

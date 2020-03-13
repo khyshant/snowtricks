@@ -97,6 +97,23 @@
                     placeholder: 'Saisissez ici votre contenu et mettez le en page Pas d\'image',
                 }
             );
+            $("#loadMoreComment").click(function(){
+                page++;
+                $.ajax({
+                    url : "{{ path('morecomments') }}",
+                    type : 'GET',
+                    data : {'page' : page},
+                    dataType : 'html',
+                    success : function(code_html, statut){
+                        $("#forComments").append(code_html);
+                    },
+
+                    error : function(resultat, statut, erreur){
+                        $("#loadMoreComment").hide('slow');
+                    },
+                });
+
+            });
             $("#loadMoreTrick").click(function(){
                 page++;
                 $.ajax({

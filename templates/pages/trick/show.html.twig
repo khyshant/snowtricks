@@ -43,8 +43,8 @@
         {{ form_end(form, { render_rest: false }) }}
 
     {% endif %}
-    <div class="container mx-auto row my-3 ">
-        {% for comment in trick.comments  %}
+    <div id="forComments" class="container mx-auto row my-3 ">
+        {% for comment in displayedcomments  %}
             <div class=" col-sm-12 trick">
                 {#
                 <h3>{{ comment.dateAdd }}</h3>
@@ -52,5 +52,11 @@
                 <p class="text-center">{{ comment.comment }}</p>
             </div>
         {% endfor %}
+    </div>
+    <div class="container">
+        <div class="row justify-content-center m-3">
+            <a href="javascript:void(0)" id="loadMoreComment"><i class="fas fa-plus-circle fa-3x"></i></a>
+            {#<a href="#" id="loadLessTrick"><i class="fas fa-minus-circle fa-3x"></i></a>#}
+        </div>
     </div>
 {% endblock %}

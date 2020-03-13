@@ -13,6 +13,7 @@ use App\Entity\Trick;
 use App\Form\CommentType;
 use App\Form\TrickType;
 use App\Handler\TrickHandler;
+use App\Repository\CommentRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,9 +26,10 @@ class TrickController extends AbstractController
 {
     private $trickRepository;
 
-    public function __construct(TrickRepository $trickRepository)
+    public function __construct(TrickRepository $trickRepository, CommentRepository $commentRepository)
     {
         $this->trickRepository = $trickRepository;
+        $this->commentRepository = $commentRepository;
 
     }
 
@@ -49,6 +51,7 @@ class TrickController extends AbstractController
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
         $user = $this->getUser();
+        $displayedcomments = $this->commentRepository->getAllComments(1);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setTrick($trick);
@@ -56,9 +59,34 @@ class TrickController extends AbstractController
             $this->getDoctrine()->getManager()->persist($comment);
             $this->getDoctrine()->getManager()->flush();
             $slug = $trick->getSlug();
+
             return $this->redirectToRoute("trick.show",array('slug' => $slug));
+
         }
-        return $this->render('pages/trick/show.html.twig'
+        return $this->render('pages/trick/show.html.twig',[
+                'trick' => $trick,
+                'displayedcomments' => $displayedcomments,
+                'current_menu'=>'home',
+                "form" => $form->createView()
+            ]
+        );
+    }
+
+    /**
+     * @Route("/morecomments", name="morecomments")
+     *
+     * @param $page
+     * @return Response
+     */
+    public function moreComments(Request $request): Response
+    {
+        $page = $request->query->getInt("page");
+        $displayedcomments = $this->commentRepository->getAllComments($page);
+        $limit = 5;
+
+        return $this->render('parts/forcomments.html.twig', [
+                'displayedcomments' => $displayedcomments,
+            ]
         );
     }
 
