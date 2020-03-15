@@ -21,6 +21,7 @@ abstract class AbstractHandler
      */
 
     private $formFactory;
+
     /**
      * @var FormInterface
      */
@@ -47,11 +48,14 @@ abstract class AbstractHandler
 
     /**
      * @param Request $request
+     * @param $data
+     * @param array $options
+     * @return bool
      */
     public function handle(Request $request, $data, array $options = []) :bool
     {
-        $form = $this->formFactory->create($this->getForm(), $data, $options)->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        $this->form = $this->formFactory->create($this->getForm(), $data, $options)->handleRequest($request);
+        if ($this->form->isSubmitted() && $this->form->isValid()) {
             $this->process($data);
             return true;
         }
@@ -59,6 +63,6 @@ abstract class AbstractHandler
     }
     public function createView() :FormView
     {
-        return $this->form->createVeiw();
+        return $this->form->createView();
     }
 }

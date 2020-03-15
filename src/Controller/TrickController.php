@@ -104,37 +104,35 @@ class TrickController extends AbstractController
     /**
      * @Route("/create", name="trick_create")
      * @param Request $request
+     * @param TrickHandler $handler
      * @return Response
      */
     public function create(Request $request,TrickHandler $handler): Response
     {
-        $trick = new Trick();
-        if($handler->handle($request, $trick, ["validation_groups" => ["Default", "add"]        ]
+        if($handler->handle($request, new Trick(), ["validation_groups" => ["Default", "add"]        ]
         )) {
             return $this->redirectToRoute("trick_create");
         }
-
+        dump($handler);
         return $this->render("admin/trick/create.html.twig", [
             "form" => $handler->createView()
         ]);
     }
+
     /**
      * @Route("/{id}/update", name="trick_update")
      * @param Request $request
+     * @param Trick $trick
+     * @param TrickHandler $handler
      * @return Response
      */
-    public function update(Request $request, Trick $trick): Response
+    public function update(Request $request, Trick $trick,TrickHandler $handler): Response
     {
-        $form = $this->createForm(TrickType::class, $trick)->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            $id = $trick->getId();
-            return $this->redirectToRoute("trick_update",array('id' => $id));
+        if($handler->handle($request, $trick)) {
+            return $this->redirectToRoute("trick_update",array('id' => $trick->getId()));
         }
-
         return $this->render("admin/trick/update.html.twig", [
-            "form" => $form->createView()
+            "form" => $handler->createView()
         ]);
     }
 }
