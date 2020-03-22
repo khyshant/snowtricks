@@ -11,6 +11,7 @@ namespace App\Controller;
 use App\Entity\Trick;
 use App\Entity\User;
 use App\Form\UserType;
+use App\Handler\UserHandler;
 use App\Repository\TrickRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -104,22 +105,17 @@ class HomeController extends AbstractController
     /**
      * @Route("/create-account", name="createUser")
      * @param Request $request
+     * @param UserHandler $handler
      * @return Response
      */
-    public function createUser(Request $request): Response
-    {$user = new User();
-        $form = $this->createForm(UserType::class,$user)->handleRequest($request);
-
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->persist($user);
-            $this->getDoctrine()->getManager()->flush();
-            dump($user);
-            //$this->sendMail($user);
+    public function createUser(Request $request,UserHandler $handler): Response
+    {
+        $user = new User();
+        if($handler->handle($request, $user)) {
             return $this->redirectToRoute("home");
         }
         return $this->render('pages/login/create_form.html.twig', [
-            "form" => $form->createView()
+            "form" => $handler->createView()
         ]);
     }
 }

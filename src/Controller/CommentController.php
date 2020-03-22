@@ -28,7 +28,7 @@ class CommentController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function create(Request $request): Response
+    /*public function create(Request $request): Response
     {
         $comment = new Comment();
 
@@ -50,7 +50,7 @@ class CommentController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function update(Request $request, Comment $comment): Response
+    /*public function update(Request $request, Comment $comment): Response
     {
         $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
 
@@ -65,5 +65,5 @@ class CommentController extends AbstractController
         return $this->render("admin/comment/update.html.twig", [
             "form" => $form->createView()
         ]);
-    }
+    }*/
 }

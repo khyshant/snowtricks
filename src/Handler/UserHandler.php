@@ -8,11 +8,11 @@
 
 namespace App\Handler;
 
-use App\Form\CommentType;
+use App\Form\TrickType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\UnitOfWork;
 
-class CommentHandler extends AbstractHandler
+class UserHandler extends AbstractHandler
 {
     /**
      * @var EntityManagerInterface
@@ -31,13 +31,9 @@ class CommentHandler extends AbstractHandler
     protected function getForm(): string
     {
         // TODO: Implement getForm() method.
-        return CommentType::class;
+        return UserType::class;
     }
 
-    /**
-     * @param $data
-     * @param array $entities
-     */
     protected function process($data): void
     {
         // TODO: Implement process() method.

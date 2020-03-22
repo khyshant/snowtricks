@@ -12,6 +12,7 @@ use App\Entity\Comment;
 use App\Entity\Trick;
 use App\Form\CommentType;
 use App\Form\TrickType;
+use App\Handler\CommentHandler;
 use App\Handler\TrickHandler;
 use App\Repository\CommentRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -46,28 +47,25 @@ class TrickController extends AbstractController
      * @Route("/trick/{slug}", name="trick.show", requirements={"slug": "[a-z0-9\-]*"})
      * @return Response
      */
-    public function show(Trick $trick, Request $request): Response
+    public function show(Trick $trick, Request $request,CommentHandler $handler): Response
     {
-        $comment = new Comment();
-        $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
-        $user = $this->getUser();
-        $displayedcomments = $this->commentRepository->getAllComments(1);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setTrick($trick);
-            $comment->setAuthor($user);
-            $this->getDoctrine()->getManager()->persist($comment);
-            $this->getDoctrine()->getManager()->flush();
+        $user = $this->getUser();
+        $comment = new comment;
+        $comment->setTrick($trick);
+        $comment->setAuthor($user);
+        $displayedComments = $this->commentRepository->getAllComments(1);
+
+        if($handler->handle($request, $comment)) {
             $slug = $trick->getSlug();
 
             return $this->redirectToRoute("trick.show",array('slug' => $slug));
-
         }
         return $this->render('pages/trick/show.html.twig',[
                 'trick' => $trick,
-                'displayedcomments' => $displayedcomments,
+                'displayedComments' => $displayedComments,
                 'current_menu'=>'home',
-                "form" => $form->createView()
+                "form" => $handler->createView()
             ]
         );
     }
@@ -113,7 +111,6 @@ class TrickController extends AbstractController
         )) {
             return $this->redirectToRoute("trick_create");
         }
-        dump($handler);
         return $this->render("admin/trick/create.html.twig", [
             "form" => $handler->createView()
         ]);

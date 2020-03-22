@@ -34,6 +34,7 @@ abstract class AbstractHandler
 
     /**
      * @param $data
+     * @param array $entities
      */
     abstract protected function process($data) : void;
 
