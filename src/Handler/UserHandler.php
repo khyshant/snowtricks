@@ -8,7 +8,7 @@
 
 namespace App\Handler;
 
-use App\Form\TrickType;
+use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\UnitOfWork;
 

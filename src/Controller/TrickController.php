@@ -49,9 +49,8 @@ class TrickController extends AbstractController
      */
     public function show(Trick $trick, Request $request,CommentHandler $handler): Response
     {
-
         $user = $this->getUser();
-        $comment = new comment;
+        $comment = new Comment();
         $comment->setTrick($trick);
         $comment->setAuthor($user);
         $displayedComments = $this->commentRepository->getAllComments(1);

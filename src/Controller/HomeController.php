@@ -40,21 +40,10 @@ class HomeController extends AbstractController
     {
         //initialisation du repository demandé
         $tricks = $this->trickrepository->getAllTricks(1);
-        //$totalPostsReturned = $tricks->getIterator()->count();
-        //$totalPosts = $tricks->count();
-        //$iterator = $tricks->getIterator()  ;
         $limit = 4;
-        //$maxPages = ceil($tricks->count() / $limit);
-        // Pass through the 3 above variables to calculate pages in twig
-
         return $this->render('pages/home.html.twig', [
                 'tricks' => $tricks,
                 'current_menu'=>'home',
-                /*'total_posts'=>$totalPosts,
-                'iterator'=>$iterator,
-                'totalpostsreturned'=>$totalPostsReturned,
-                'max_page'=>$maxPages,
-                'current_page'=>$thisPage,*/
             ]
         );
     }
@@ -70,7 +59,6 @@ class HomeController extends AbstractController
         $page = $request->query->getInt("page");
         $tricks = $this->trickrepository->getAllTricks($page);
         $limit = 4;
-
         return $this->render('parts/fortricks.html.twig', [
                 'tricks' => $tricks,
             ]
@@ -86,7 +74,6 @@ class HomeController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         // retrouver le dernier identifiant de connexion utilisé
         $lastUsername = $authenticationUtils->getLastUsername();
-
         return $this->render('pages/login/form.html.twig', [
                 'last_username' => $lastUsername,
                 'error' => $error,

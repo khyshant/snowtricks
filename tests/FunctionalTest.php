@@ -44,9 +44,26 @@ class FunctionalTest extends WebTestCase
         ]);
         $client->submit($form);
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
-
         $crawler = $client->followRedirect();
         $this->assertEquals('login',$client->getRequest()->attributes->get('_route'));
         $this->assertStringContainsString('Invalid credentials.',$crawler->filter('div.alert-danger')->text());
-        dump($crawler->filter('div.alert-danger')->text());   }
+    }
+
+    public function testSuccesscreatUser()
+    {
+        $client = static::createClient();
+        $crawler = $client->request(Request::METHOD_GET, "/create-account");
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $form = $crawler->filter('form[name=login_form]')->form([
+            "_username" => "user1_1",
+            "_password" => "userpass",
+            "_password" => "userpass",
+        ]);
+        $client->submit($form);
+        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
+
+        $client->followRedirect();
+        $this->assertEquals('',$client->getRequest()->attributes->get('route'));
+    }
 }
