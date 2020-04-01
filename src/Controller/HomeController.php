@@ -57,7 +57,14 @@ class HomeController extends AbstractController
     public function moreTrick(Request $request): Response
     {
         $page = $request->query->getInt("page");
+
         $tricks = $this->trickrepository->getAllTricks($page);
+        if($page < 1){
+            return false;
+        }
+        if(empty($tricks)){
+            return false;
+        }
         $limit = 4;
         return $this->render('parts/fortricks.html.twig', [
                 'tricks' => $tricks,

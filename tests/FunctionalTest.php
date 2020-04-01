@@ -49,21 +49,51 @@ class FunctionalTest extends WebTestCase
         $this->assertStringContainsString('Invalid credentials.',$crawler->filter('div.alert-danger')->text());
     }
 
-    public function testSuccesscreatUser()
+    public function testFailedcreatUser()
     {
         $client = static::createClient();
         $crawler = $client->request(Request::METHOD_GET, "/create-account");
 
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
-        $form = $crawler->filter('form[name=login_form]')->form([
-            "_username" => "user1_1",
-            "_password" => "userpass",
-            "_password" => "userpass",
+        $form = $crawler->filter('form[name=user]')->form([
+            "user[username]" => "user1_1",
+            "user[email]" => "a.a@gmail.com",
+            "user[password]" => "userpass",
         ]);
+        $client->submit($form);
+        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
+        $crawler = $client->followRedirect();
+        $this->assertEquals('create-account',$client->getRequest()->attributes->get('_route'));
+        //$this->assertStringContainsString('Invalid credentials.',$crawler->filter('div.alert-danger')->text());
+    }
+
+    public function testSuccesscreatUser()
+    {
+        $client = static::createClient();
+        $crawler = $client->request(Request::METHOD_GET, "/create-account");
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+
+        $form = $crawler->filter('form[name=user]')->form([
+            "user[username]" => "tatadu330",
+            "user[email]" => "a.a@gmail.com",
+            "user[password]" => "userpass",
+        ]);
+        $csrfToken = $form->get('user')['_token']->getValue();
         $client->submit($form);
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
 
         $client->followRedirect();
         $this->assertEquals('',$client->getRequest()->attributes->get('route'));
     }
+
+    public function testSuccessmoretricks()
+    {
+        $client = static::createClient();
+        $crawler = $client->request(Request::METHOD_GET, "/moretricks");
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
+
+    }
+
+
 }
