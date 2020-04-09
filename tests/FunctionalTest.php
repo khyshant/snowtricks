@@ -10,12 +10,14 @@ namespace App\Tests;
 
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\DomCrawler\Crawler;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class FunctionalTest extends WebTestCase
 {
-    public function testSuccessfullLogin()
+   /* public function testSuccessfullLogin()
     {
         $client = static::createClient();
         $crawler = $client->request(Request::METHOD_GET, "/login");
@@ -40,7 +42,7 @@ class FunctionalTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $form = $crawler->filter('form[name=login_form]')->form([
             "_username" => "user1_1",
-            "_password" => "faill",
+            "_password" => "fail",
         ]);
         $client->submit($form);
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
@@ -89,6 +91,53 @@ class FunctionalTest extends WebTestCase
         $crawler = $client->request(Request::METHOD_GET, "/moretricks");
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
+*/
+    public function testSuccessAddTrick()
+    {
+        $client = static::createClient([], [
+            'PHP_AUTH_USER' => 'user1_1',
+            'PHP_AUTH_PW'   => 'userpass',
+        ]);
 
+        $query = $client->request("POST",'create',array(
+            "trick['title']"=>"test titlle",
+            "trick['description']"=>"test description",
+            "trick['metatitle']"=>"test metatitle",
+            "trick['metadescription']"=>"test description",
+            "trick['group']"=>"1",
+            "trick['videos']"=>array(
+                0 => array(
+                    'uri'=>'http://test.test',
+                ),
+            ),
+            "trick['image']"=>array(
+                0 => array(
+                    'uploadedFile'=>'http://test.test',
+                ),
+            ),
 
+        ));
+
+        $this->assertTrue($client->getResponse()->isRedirect());
+    }
+
+    /*public function testSuccessAddImage()
+    {
+        $client = static::createClient();
+        $crawler = $client->request(Request::METHOD_GET, "/moretricks");
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+    }*/
+
+    /**
+     * @return string
+     */
+    private function createFile()
+    {
+        $filename = md5(uniqid('', true)).'.png';
+        file_put_contents(
+            __DIR__.'/../public/uploads/' . $filename,
+            file_get_contents('http://via.placeholder.com/400x400')
+        );
+        return $filename;
+    }
 }
