@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: khysh
- * Date: 10/03/2020
- * Time: 19:13
- */
-
 namespace App\Handler;
 
 use App\Form\CommentType;
