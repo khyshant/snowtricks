@@ -8,24 +8,24 @@
         </div>
     {% endif %}
 
-    <div class="row">
-        <div class="col-sm-5">
+    <div class="container">
+        <div class="col-sm-12">
             <div class="well">
                 <form action="{{ path('login') }}" method="post" name="login_form">
                     <fieldset>
-                        <legend><i class="fa fa-lock" aria-hidden="true"></i> {{ 'title.login'|trans }}</legend>
+                        <legend><i class="fa fa-lock" aria-hidden="true"></i> {{ 'login'|trans }}</legend>
                         <div class="form-group">
-                            <label for="username">{{ 'label.username'|trans }}</label>
+                            <label for="username">{{ 'username'|trans }}</label>
                             <input type="text" id="_username" name="_username" value="{{ last_username }}" class="form-control"/>
                         </div>
                         <div class="form-group">
-                            <label for="password">{{ 'label.password'|trans }}</label>
+                            <label for="password">{{ 'password'|trans }}</label>
                             <input type="password" id="_password" name="_password" class="form-control" />
                         </div>
                         <input type="hidden" name="_target_path" value="{{ app.request.get('redirect_to') }}"/>
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
                         <button type="submit" name="login_form[submit]"class="btn btn-primary">
-                            <i class="fa fa-sign-in" aria-hidden="true"></i> {{ 'action.sign_in'|trans }}
+                            {{ 'sign_in'|trans }}
                         </button>
                     </fieldset>
                 </form>
