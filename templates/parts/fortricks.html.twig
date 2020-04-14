@@ -2,12 +2,12 @@
 {% for trick in tricks  %}
     <div class=" col-sm-6 col-md-3 trick">
         <h3 class="text-center">{{ trick.title }}</h3>
-        <img src="{{ path('') }}" class="card-img-top" alt="...">
+        <img src="https://picsum.photos/1024/502" class="card-img-top" alt="...">
         <div class="card-body">
             <p class="card-text">{{ trick.description|slice(0,50) }}...</p>
             <a class="float-right" href="{{ path('trick.show',{slug: trick.slug}) }}" title="voir {{ trick.title }}">Voir plus</a>
         </div>
-        {% if is_granted('ROLE_ADMIN') == false %}
+        {% if is_granted('ROLE_ADMIN') == true %}
             <div class="card-footer mt-2 text-right">
                 <a class="mx-1" href="{{ path('trick_update',{id: trick.id}) }}"><i class="fa fa-pen" aria-hidden="true"></i>
                 </a>
