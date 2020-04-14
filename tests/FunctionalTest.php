@@ -9,6 +9,7 @@
 namespace App\Tests;
 
 
+use App\Entity\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -17,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FunctionalTest extends WebTestCase
 {
-   /* public function testSuccessfullLogin()
+    public function testSuccessfullLogin()
     {
         $client = static::createClient();
         $crawler = $client->request(Request::METHOD_GET, "/login");
@@ -91,42 +92,48 @@ class FunctionalTest extends WebTestCase
         $crawler = $client->request(Request::METHOD_GET, "/moretricks");
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
-*/
+
     public function testSuccessAddTrick()
     {
         $client = static::createClient([], [
             'PHP_AUTH_USER' => 'user1_1',
             'PHP_AUTH_PW'   => 'userpass',
         ]);
+        $crawler = $client->request('GET','/create');
+        $em = $client->getContainer()->get("doctrine.orm.entity_manager");
+        $group = $em->getRepository(Group::class)->findOneBy([]);
 
-        $query = $client->request("POST",'create',array(
-            "trick['title']"=>"test titlle",
-            "trick['description']"=>"test description",
-            "trick['metatitle']"=>"test metatitle",
-            "trick['metadescription']"=>"test description",
-            "trick['group']"=>"1",
-            "trick['videos']"=>array(
-                0 => array(
-                    'uri'=>'http://test.test',
+        $form = $crawler->filter('form[name=trick]')->form();
+        $csrfToken = $form->get("trick")['_token']->getValue();
+
+        $trickData = [
+            'Trick'=>[
+                "_token"=>$csrfToken,
+                "title"=>"test titlle",
+                "description"=>"test description",
+                "metatitle"=>"test metatitle",
+                "metadescription"=>"test descKiption",
+                "group"=>$group->getId(),
+                "videos"=>array(
+                    0 => array(
+                        'uri'=>'http://test.test',
+                    ),
                 ),
-            ),
-            "trick['image']"=>array(
-                0 => array(
-                    'uploadedFile'=>'http://test.test',
-                ),
-            ),
+            ],
+            [
+                "trick" => [
+                    "images" => [
+                        'uploadedFile'=>$this->createFile(),
+                    ]
+                ]
+            ]
+        ];
 
-        ));
+        $client->request(Request::METHOD_POST, '/create', $trickData);
 
-        $this->assertTrue($client->getResponse()->isRedirect());
+        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+
     }
-
-    /*public function testSuccessAddImage()
-    {
-        $client = static::createClient();
-        $crawler = $client->request(Request::METHOD_GET, "/moretricks");
-        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
-    }*/
 
     /**
      * @return string
@@ -138,6 +145,12 @@ class FunctionalTest extends WebTestCase
             __DIR__.'/../public/uploads/' . $filename,
             file_get_contents('http://via.placeholder.com/400x400')
         );
-        return $filename;
+        return new UploadedFile(
+            __DIR__.'/../public/uploads/' . $filename,
+            $filename,
+            false,
+            false,
+            true
+        );
     }
 }

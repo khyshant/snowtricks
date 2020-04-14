@@ -31,8 +31,9 @@
             <div class="col-sm-2 mx-auto bg-secondary text-white text-center">Dernière modification : {{ trick.dateUpdate|date('Y-m-d') }}</div>
         </div>
     </div>
-    {% if is_granted('ROLE_ADMIN') == false %}
+    {% if is_granted('ROLE_ADMIN') == true %}
         {{ form_start(form) }}
+        {{ form_error }}
         {{ form_widget(form._token) }}
         <div class="card-body">
             {{ include("admin/comment/_form.html.twig") }}

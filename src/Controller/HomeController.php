@@ -40,7 +40,6 @@ class HomeController extends AbstractController
     {
         //initialisation du repository demandé
         $tricks = $this->trickrepository->getAllTricks(1);
-        $limit = 4;
         return $this->render('pages/home.html.twig', [
                 'tricks' => $tricks,
                 'current_menu'=>'home',
