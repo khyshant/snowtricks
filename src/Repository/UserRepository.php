@@ -15,6 +15,10 @@ use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
  */
 class UserRepository extends ServiceEntityRepository implements UserLoaderInterface
 {
+    /**
+     * UserRepository constructor.
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
@@ -31,6 +35,10 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->setParameter('query', $usernameOrEmail)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+    public function FindOneByEmail($data)
+    {
+        return $this->findOneBy($data);
     }
     // /**
     //  * @return User[] Returns an array of User objects

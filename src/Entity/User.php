@@ -63,6 +63,12 @@ class User implements UserInterface
      */
     private $comments;
 
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="token", type="string", length=255, unique=true, nullable=true)
+     */
+    private $token;
 
     public function getId(): ?int
     {
@@ -139,6 +145,22 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getToken(): string
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param string $token
+     */
+    public function setToken(string $token): void
+    {
+        $this->token = $token;
+    }
+
 
 
 // add by userInterface
@@ -210,4 +232,5 @@ class User implements UserInterface
     {
         // TODO: Implement eraseCredentials() method.
     }
+
 }

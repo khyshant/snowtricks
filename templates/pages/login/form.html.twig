@@ -24,7 +24,8 @@
                         </div>
                         <input type="hidden" name="_target_path" value="{{ app.request.get('redirect_to') }}"/>
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
-                        <button type="submit" name="login_form[submit]"class="btn btn-primary">
+                        <a class="nav-link" href="{{ path("forgotten_password") }}">Mot de passe oublié</a>
+                        <button type="submit" name="login_form[submit]"class="btn btn-primary col">
                             {{ 'sign_in'|trans }}
                         </button>
                     </fieldset>
