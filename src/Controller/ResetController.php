@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -44,14 +45,20 @@ class ResetController extends AbstractController
     }
 
     /**
-     * @Route("/resetPassword/{token}", name="forgotten_password", requirements={"token": "[a-z0-9\-]*"})
+     * @Route("/newPassword/{token}", name="newPassword", requirements={"token": "[a-z0-9\-]*"})
      *
      * @param Request $request
      * @return Response
      */
-    public function ResetPassword(Request $request, string $token): Response
+    public function ResetPassword(Request $request, string $token, ResetPassword $resetPassword): Response
     {
         $user = $this->userRepository->findOneBy(['token' => $token]);
+        $returnhome = $this->generateUrl(
+            'home' // 1er argument : le nom de la route
+        );
+        $returnLogin= $this->generateUrl(
+            'home' // 1er argument : le nom de la route
+        );
         if($user) {
             $form = $this->createFormBuilder()
                 ->add('password', TextType::class,[
@@ -65,18 +72,18 @@ class ResetController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 // data is an array with "name", "email", and "message" keys
                 $data = $form->getData();
-                $reset = new ResetPassword($this->userRepository, $this->entityManager);
-                $reset->resetUserPassword($data,$user);
+                //$reset = new ResetPassword($this->userRepository, $this->entityManager, $this->twig);
+                $resetPassword->resetUserPassword($data,$user);
+                return $this->redirect($returnLogin);
             }
 
-            return $this->render("pages/login/forgot_password.html.twig", [
+            return $this->render("pages/login/reset_password.html.twig", [
                 "form" => $form->createView()
             ]);
-            return $this->forward('App\Controller\HomeController::index');
+
+
         }
-
-
-
+        return $this->redirect($returnhome);
     }
 
     private function findUserByToken() {

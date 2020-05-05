@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+
 class emailController extends AbstractController
 {
 
@@ -36,12 +37,17 @@ class emailController extends AbstractController
         $this->userRepository  =   $userRepository;
         $this->entityManager = $entityManager;
     }
+
     /**
-    * @Route("/forgottenPassword", name="forgotten_password")
-    *
-    * @return Response
-    */
-    public function forgottenpassword(Request $request,\Swift_Mailer $mailer): Response
+     * @Route("/forgottenPassword", name="forgotten_password")
+     *
+     * @param Request $request
+     * @param \Swift_Mailer $mailer
+     * @param ResetPassword $resetpassword
+     * @return Response
+     * @throws \Exception
+     */
+    public function forgottenpassword(Request $request,\Swift_Mailer $mailer, ResetPassword $resetpassword): Response
     {
         $form = $this->createFormBuilder()
             ->add('email', TextType::class,[
@@ -55,8 +61,8 @@ class emailController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // data is an array with "name", "email", and "message" keys
             $data = $form->getData();
-            $reset = new ResetPassword($this->userRepository, $this->entityManager);
-            $reset->sendEmail($data, $mailer);
+            //$reset = new ResetPassword($this->userRepository, $this->entityManager);
+            $resetpassword->sendEmail($data, $mailer);
             return $this->forward('App\Controller\HomeController::index');
         }
 
