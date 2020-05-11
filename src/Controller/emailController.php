@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 
+use App\Entity\User;
+use App\Handler\ResetEmailHandler;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\services\ResetPassword;
@@ -44,12 +46,12 @@ class emailController extends AbstractController
      * @param Request $request
      * @param \Swift_Mailer $mailer
      * @param ResetPassword $resetpassword
+     * @param ResetEmailHandler $handler
      * @return Response
      * @throws \Exception
      */
-    public function forgottenpassword(Request $request,\Swift_Mailer $mailer, ResetPassword $resetpassword): Response
+    public function forgottenpassword(Request $request,\Swift_Mailer $mailer, ResetPassword $resetpassword, ResetEmailHandler $handler): Response
     {
-
         $user = new User();
         if($handler->handle($request, $user)) {
             return $this->redirectToRoute("home");

@@ -2,11 +2,11 @@
 
 namespace App\Handler;
 
-use App\Form\UserType;
+use App\Form\ResetEmailType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\UnitOfWork;
 
-class ResetEmailHandlerHandler extends AbstractHandler
+class ResetEmailHandler extends AbstractHandler
 {
     /**
      * @var EntityManagerInterface
