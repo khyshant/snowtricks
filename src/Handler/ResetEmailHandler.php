@@ -6,7 +6,7 @@ use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\UnitOfWork;
 
-class UserHandler extends AbstractHandler
+class ResetEmailHandlerHandler extends AbstractHandler
 {
     /**
      * @var EntityManagerInterface

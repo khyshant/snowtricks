@@ -49,6 +49,11 @@ class emailController extends AbstractController
      */
     public function forgottenpassword(Request $request,\Swift_Mailer $mailer, ResetPassword $resetpassword): Response
     {
+
+        $user = new User();
+        if($handler->handle($request, $user)) {
+            return $this->redirectToRoute("home");
+        }
         $form = $this->createFormBuilder()
             ->add('email', TextType::class,[
                 'constraints' => new NotBlank(),

@@ -8,6 +8,7 @@ use App\Repository\UserRepository;
 use App\services\ResetPassword;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,7 +62,7 @@ class ResetController extends AbstractController
         );
         if($user) {
             $form = $this->createFormBuilder()
-                ->add('password', TextType::class,[
+                ->add('password', PasswordType::class,[
                     'constraints' => new NotBlank(),
                     'label' => 'Password',
                 ])
