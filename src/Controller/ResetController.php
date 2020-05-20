@@ -87,7 +87,7 @@ class ResetController extends AbstractController
         return $this->redirect($returnhome);
     }
 
-    private function findUserByToken() {
+    private function findUserByToken($token) {
        $user = $this->userRepository->FindOneBy(['token'=>$token]);
     }
 }

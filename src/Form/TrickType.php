@@ -35,17 +35,11 @@ class TrickType extends AbstractType
         $builder
 
             ->add("title", TextType::class)
-            /*->add("valid", ChoiceType::class, array(
-                'expanded' => true,
-                'multiple' => false,
-                'choices' => array(
-                    'Approuvé' => '1',
-                    'En attente' => '0')))*/
             ->add("description", TextareaType::class)
             ->add("metatitle", TextType::class)
             ->add("metadescription", TextareaType::class)
             ->add('group', EntityType::class, [
-                // looks for choices from this entity
+
                 'mapped' =>true,
                 'class' => Group::class,
                 // uses the User.username property as the visible option string

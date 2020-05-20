@@ -30,14 +30,6 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            /*
-             ->add("isvalid", ChoiceType::class, array(
-                'expanded' => true,
-                'multiple' => false,
-                'choices' => array(
-                    'Approuvé' => '1',
-                    'En attente' => '0')))
-            */
             ->add("comment", TextareaType::class)
         ;
     }
