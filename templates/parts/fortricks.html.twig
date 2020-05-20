@@ -7,12 +7,14 @@
             <p class="card-text">{{ trick.description|slice(0,50) }}...</p>
             <a class="float-right" href="{{ path('trick.show',{slug: trick.slug}) }}" title="voir {{ trick.title }}">Voir plus</a>
         </div>
-        {% if is_granted('ROLE_ADMIN') == false %}
+
             <div class="card-footer mt-2 text-right">
+                {% if is_granted('edit',trick) %}
                 <a class="mx-1" href="{{ path('trick_update',{id: trick.id}) }}"><i class="fa fa-pen" aria-hidden="true"></i>
                 </a>
                 <a class="mx-1" href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-trash" aria-hidden="true"></i>
                 </a>
+                {% endif %}
             </div>
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -30,6 +32,6 @@
                     </div>
                 </div>
             </div>
-        {% endif %}
+
     </div>
 {% endfor %}

@@ -23,47 +23,5 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CommentController extends AbstractController
 {
-    /**
-     * @Route("/create", name="comment_create")
-     * @param Request $request
-     * @return Response
-     */
-    /*public function create(Request $request): Response
-    {
-        $comment = new Comment();
 
-        $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->persist($comment);
-            $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute("comment_create");
-        }
-
-        return $this->render("admin/comment/create.html.twig", [
-            "form" => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/{id}/update", name="comment_update")
-     * @param Request $request
-     * @return Response
-     */
-    /*public function update(Request $request, Comment $comment): Response
-    {
-        $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->persist($comment);
-            $this->getDoctrine()->getManager()->flush();
-            $id = $comment->getId();
-
-            return $this->redirectToRoute("comment_update",array('id' => $id));
-        }
-
-        return $this->render("admin/comment/update.html.twig", [
-            "form" => $form->createView()
-        ]);
-    }*/
 }

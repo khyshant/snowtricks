@@ -15,6 +15,7 @@ use App\Form\TrickType;
 use App\Handler\CommentHandler;
 use App\Handler\TrickHandler;
 use App\Repository\CommentRepository;
+use App\Security\voter\TrickVoter;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -79,7 +80,6 @@ class TrickController extends AbstractController
     {
         $page = $request->query->getInt("page");
         $displayedcomments = $this->commentRepository->getAllComments($page);
-        $limit = 5;
 
         return $this->render('parts/forcomments.html.twig', [
                 'displayedcomments' => $displayedcomments,
@@ -124,6 +124,7 @@ class TrickController extends AbstractController
      */
     public function update(Request $request, Trick $trick,TrickHandler $handler): Response
     {
+        $this->denyAccessUnlessGranted(TrickVoter::EDIT, $trick);
         if($handler->handle($request, $trick)) {
             return $this->redirectToRoute("trick_update",array('id' => $trick->getId()));
         }
