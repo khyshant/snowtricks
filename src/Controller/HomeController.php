@@ -8,28 +8,27 @@
 
 namespace App\Controller;
 
-use App\Entity\Trick;
 use App\Entity\User;
-use App\Form\UserType;
 use App\Handler\UserHandler;
 use App\Repository\TrickRepository;
+use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Twig\Environment;
+
 
 
 /**
- * @property TrickRepository trickrepository
+ * @property TrickRepository trickRepository
  */
 class HomeController extends AbstractController
 {
 
     public function __construct(TrickRepository $trickRepository)
     {
-        $this->trickrepository = $trickRepository;
+        $this->trickRepository = $trickRepository;
     }
 
     /**
@@ -39,7 +38,7 @@ class HomeController extends AbstractController
     public function index(): Response
     {
         //initialisation du repository demandé
-        $tricks = $this->trickrepository->getAllTricks(1);
+        $tricks = $this->trickRepository->getAllTricks(1);
         return $this->render('pages/home.html.twig', [
                 'tricks' => $tricks,
                 'current_menu'=>'home',
@@ -50,7 +49,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/moretricks", name="moretricks")
      *
-     * @param $page
+     * @param Request $request
      * @return Response
      */
     public function moreTrick(Request $request): Response
@@ -59,7 +58,7 @@ class HomeController extends AbstractController
         if($page <= 1){
             $page = 2;
         }
-        $tricks = $this->trickrepository->getAllTricks($page);
+        $tricks = $this->trickRepository->getAllTricks($page);
         return $this->render('parts/fortricks.html.twig', [
                 'tricks' => $tricks,
             ]
@@ -68,6 +67,8 @@ class HomeController extends AbstractController
 
     /**
      * @Route("/login", name="login")
+     * @param AuthenticationUtils $authenticationUtils
+     * @return Response
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -84,10 +85,11 @@ class HomeController extends AbstractController
 
     /**
      * @Route("/logout", name="logout")
+     * @throws Exception
      */
     public function logout(): void
     {
-        throw new \Exception('This should never be reached!');
+        throw new Exception('This should never be reached!');
     }
 
     /**

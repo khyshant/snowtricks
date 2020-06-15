@@ -18,21 +18,18 @@ class CommentRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Comment::class);
     }
+
     /**
-     * @param int $currentPage
+     * @param $trick
+     * @param $currentPage
      * @return Paginator
      */
-    public function getAllComments($currentPage)
-    {
-        // Create our query
-        $query = $this->createQueryBuilder('c')
-            ->getQuery();
-
-        // No need to manually get get the result ($query->getResult())
-
-        $paginator = $this->paginate($query, $currentPage);
-
-        return $paginator;
+    public function getCommentsByTrick ($trick, $currentPage) {
+        $query = $this->createQueryBuilder("c")
+            ->where('c.trick = :id')
+            ->setParameter('id', $trick->getId())
+        ->orderBy('c.dateAdd','DESC');
+        return $this->paginate($query, $currentPage);
     }
 
     /**
@@ -41,13 +38,12 @@ class CommentRepository extends ServiceEntityRepository
      * @param int $limit
      * @return Paginator
      */
-    public function paginate($sql, $page, $limit = 4)
+    public function paginate($sql, $page, $limit = 10)
     {
         $paginator = new Paginator($sql);
-        $paginator->getQuery()
+        $paginator->getQuery(['id' => 'DESC'])
             ->setFirstResult($limit * ($page - 1)) // Offset
             ->setMaxResults($limit); // Limit
-
         return $paginator;
     }
 }

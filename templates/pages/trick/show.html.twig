@@ -31,15 +31,14 @@
             <div class="col-sm-2 mx-auto bg-secondary text-white text-center">Dernière modification : {{ trick.dateUpdate|date('Y-m-d') }}</div>
         </div>
     </div>
-    {% if is_granted('ROLE_ADMIN') == true %}
+    {% if is_granted('ROLE_USER') == true %}
         {{ form_start(form) }}
-        {{ form_error }}
         {{ form_widget(form._token) }}
         <div class="card-body">
             {{ include("admin/comment/_form.html.twig") }}
         </div>
         <div class="card-footer">
-            <button class="btn btn-block btn-lg btn-primary">Modifier</button>
+            <button class="btn btn-block btn-lg btn-primary">Ajouter le commentaire</button>
         </div>
         {{ form_end(form, { render_rest: false }) }}
 

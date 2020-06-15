@@ -86,6 +86,7 @@
         });
         $( document ).ready(function() {
             let page = 1;
+            let trick = 0;
             $('#trick_description').summernote(
                 {
                     placeholder: 'Saisissez ici votre chapo et mettez le en page',
@@ -98,10 +99,13 @@
             );
             $("#loadMoreComment").click(function(){
                 page++;
+                {% if trick is defined %}
+                trick = {{ trick.id }}
+                {% endif %}
                 $.ajax({
                     url : "{{ path('morecomments') }}",
                     type : 'GET',
-                    data : {'page' : page},
+                    data : {'page' : page, 'trick' : trick},
                     dataType : 'html',
                     success : function(code_html, statut){
                         $("#forComments").append(code_html);

@@ -10,14 +10,10 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Trick;
-use App\Form\CommentType;
-use App\Form\TrickType;
 use App\Handler\CommentHandler;
 use App\Handler\TrickHandler;
 use App\Repository\CommentRepository;
 use App\Security\voter\TrickVoter;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\TrickRepository;
@@ -26,8 +22,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TrickController extends AbstractController
 {
+    /**
+     * @var TrickRepository
+     */
     private $trickRepository;
+    /**
+     * @var CommentRepository
+     */
+    private $commentRepository;
 
+    /**
+     * TrickController constructor.
+     * @param TrickRepository $trickRepository
+     * @param CommentRepository $commentRepository
+     */
     public function __construct(TrickRepository $trickRepository, CommentRepository $commentRepository)
     {
         $this->trickRepository = $trickRepository;
@@ -46,6 +54,9 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/trick/{slug}", name="trick.show", requirements={"slug": "[a-z0-9\-]*"})
+     * @param Trick $trick
+     * @param Request $request
+     * @param CommentHandler $handler
      * @return Response
      */
     public function show(Trick $trick, Request $request,CommentHandler $handler): Response
@@ -54,7 +65,7 @@ class TrickController extends AbstractController
         $comment = new Comment();
         $comment->setTrick($trick);
         $comment->setAuthor($user);
-        $displayedComments = $this->commentRepository->getAllComments(1);
+        $displayedComments = $this->commentRepository->getCommentsByTrick($trick,1);
 
         if($handler->handle($request, $comment)) {
             $slug = $trick->getSlug();
@@ -73,22 +84,25 @@ class TrickController extends AbstractController
     /**
      * @Route("/morecomments", name="morecomments")
      *
-     * @param $page
+     * @param Request $request
      * @return Response
      */
     public function moreComments(Request $request): Response
     {
         $page = $request->query->getInt("page");
-        $displayedcomments = $this->commentRepository->getAllComments($page);
+        $trick_id = $request->query->getInt("trick");
+        $trick = $this->trickRepository->find($trick_id);
+        $displayedComments = $this->commentRepository->getCommentsByTrick($trick,$page);
 
         return $this->render('parts/forcomments.html.twig', [
-                'displayedcomments' => $displayedcomments,
+                'displayedcomments' => $displayedComments,
             ]
         );
     }
 
     /**
      * @Route("/delete/{slug}", name="trick.delete", requirements={"slug": "[a-z0-9\-]*"})
+     * @param Trick $trick
      * @return Response
      */
     public function delete( Trick $trick): Response

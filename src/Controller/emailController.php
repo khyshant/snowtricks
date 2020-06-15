@@ -8,9 +8,9 @@ use App\Handler\ResetEmailHandler;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\services\ResetPassword;
+use Exception;
+use Swift_Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Generator\UrlGenerator;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,13 +21,15 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 class emailController extends AbstractController
 {
 
+    /**
+     * @var UserRepository
+     */
     private $userRepository;
 
     /**
      * @var EntityManagerInterface
      */
     private $entityManager;
-
 
     /**
      * emailController constructor.
@@ -44,13 +46,13 @@ class emailController extends AbstractController
      * @Route("/forgottenPassword", name="forgotten_password")
      *
      * @param Request $request
-     * @param \Swift_Mailer $mailer
-     * @param ResetPassword $resetpassword
+     * @param Swift_Mailer $mailer
+     * @param ResetPassword $resetPassword
      * @param ResetEmailHandler $handler
      * @return Response
-     * @throws \Exception
+     * @throws Exception
      */
-    public function forgottenpassword(Request $request,\Swift_Mailer $mailer, ResetPassword $resetpassword, ResetEmailHandler $handler): Response
+    public function forgottenPassword(Request $request, Swift_Mailer $mailer, ResetPassword $resetPassword, ResetEmailHandler $handler): Response
     {
         $user = new User();
         if($handler->handle($request, $user)) {
@@ -66,10 +68,8 @@ class emailController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // data is an array with "name", "email", and "message" keys
             $data = $form->getData();
-            //$reset = new ResetPassword($this->userRepository, $this->entityManager);
-            $resetpassword->sendEmail($data, $mailer);
+            $resetPassword->sendEmail($data, $mailer);
             return $this->forward('App\Controller\HomeController::index');
         }
 
