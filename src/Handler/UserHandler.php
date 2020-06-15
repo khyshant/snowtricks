@@ -2,6 +2,7 @@
 
 namespace App\Handler;
 
+use App\Entity\User;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\UnitOfWork;
@@ -35,14 +36,15 @@ class UserHandler extends AbstractHandler
         return UserType::class;
     }
 
+    /**
+     * @param User $data
+     */
     protected function process($data): void
     {
         // TODO: Implement process() method.
-        dump($data);
         if ($this->entityManager->getUnitOfWork()->getEntityState($data) === UnitOfWork::STATE_NEW) {
-            $data->setPassword($this->userPasswordEncoder->encodePassword($data,$data['password']));
+            $data->setPassword($this->userPasswordEncoder->encodePassword($data,$data->getPassword()));
             $this->entityManager->persist($data);
-
         }
         $this->entityManager->flush();
 
