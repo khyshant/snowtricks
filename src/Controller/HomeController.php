@@ -10,6 +10,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Handler\UserHandler;
+use App\Repository\ImageRepository;
 use App\Repository\TrickRepository;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,10 +26,25 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
  */
 class HomeController extends AbstractController
 {
+    /**
+     * @var string
+     */
+    private $uploadDirAbsolutePath;
 
-    public function __construct(TrickRepository $trickRepository)
+    /**
+     * @property TrickRepository trickRepository
+     */
+    private $trickRepository;
+    /**
+     * @var ImageRepository
+     */
+    private $imageRepository;
+
+    public function __construct(TrickRepository $trickRepository, ImageRepository $imageRepository,string $uploadDirAbsolutePath)
     {
         $this->trickRepository = $trickRepository;
+        $this->imageRepository = $imageRepository;
+        $this->uploadDirAbsolutePath = $uploadDirAbsolutePath;
     }
 
     /**
@@ -38,9 +54,12 @@ class HomeController extends AbstractController
     public function index(): Response
     {
         //initialisation du repository demandé
+        $images = $this->imageRepository->getFourRandomImage();
         $tricks = $this->trickRepository->getAllTricks(1);
         return $this->render('pages/home.html.twig', [
                 'tricks' => $tricks,
+                'images' => $images,
+                'uploadDirAbsolutePath' => $this->uploadDirAbsolutePath,
                 'current_menu'=>'home',
             ]
         );

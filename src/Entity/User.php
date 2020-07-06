@@ -66,6 +66,13 @@ class User implements UserInterface
     /**
      * @var string|null
      *
+     * @ORM\Column(name="avatar", type="string", length=255,)
+     */
+    private $avatar;
+
+    /**
+     * @var string|null
+     *
      * @ORM\Column(name="token", type="string", length=255, unique=true, nullable=true)
      */
     private $token;
@@ -77,7 +84,7 @@ class User implements UserInterface
 
     /*__________construc___________*/
     public function __construct(){
-
+        $this->setAvatar() ;
         $this->comments = new ArrayCollection();
     }
 
@@ -159,6 +166,23 @@ class User implements UserInterface
     public function setToken(string $token): void
     {
         $this->token = $token;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * @param string|null $avatar
+     */
+    public function setAvatar(): void
+    {
+        $id = rand(1,8);
+        $this->avatar = 'avatar'.$id.'.png';
     }
 
 

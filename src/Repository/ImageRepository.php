@@ -19,4 +19,8 @@ class ImageRepository extends ServiceEntityRepository
         parent::__construct($registry, Image::class);
     }
 
+    public function getFourRandomImage()
+    {
+        return $this->findBy([], ['id'=>'ASC'], 4);
+    }
 }

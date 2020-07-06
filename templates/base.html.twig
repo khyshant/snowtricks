@@ -135,7 +135,9 @@
 
             });
         });
-
+        function MoveOnCover(imgSrc) {
+            document.getElementById('showImg').src = "{{ asset('uploads/') }}"+imgSrc;
+        }
     </script>
 {% endblock %}
 </body>

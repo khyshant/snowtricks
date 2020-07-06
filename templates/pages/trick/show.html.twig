@@ -6,12 +6,13 @@
 {% block body %}
 
     <div class="container">
-        <img src="https://picsum.photos/1024/502" class="card-img-top" alt="...">
+        <img id="showImg" src="https://picsum.photos/1024/502" class="card-img-top" alt="...">
         <h1 class="title-trick">{{ trick.title }}</h1>
     </div>
     <div class="container flex test">
         {% for key,image in trick.images  %}
-            <a href="javascript(void)" class=" col-sm- col-md-2  " onclick="MoveOnCover('{{ image.path }}')"><img src="{{ asset('uploads/') }}{{ image.path }}" class="card-img-top trick_item" alt="..."></a>
+            <div id="showImg{{ key }}" class=" col-sm- col-md-2  " onclick="MoveOnCover('{{ image.path }}')">
+            <img src="{{ asset('uploads/') }}{{ image.path }}" class="card-img-top trick_item" alt="..."></div >
         {% endfor %}
         {% for key,video in trick.videos  %}
             <a  target="_blank" href="{{ video.uri }}" class=" col-sm- col-md-2  "><img src="{{ asset('uploads/video-logo.jpg') }}" class="card-img-top trick_item"></a>
@@ -22,7 +23,7 @@
 
 
         <div class="flex my-3">
-            <div class="col-sm-2 mx-auto bg-secondary text-white text-center">Auteur</div>
+            <div class="col-sm-2 mx-auto bg-secondary text-white text-center">Auteur : {{ trick.author.username }}</div>
 
             <div class="col-sm-2 mx-auto bg-secondary text-white text-center">Groupe : {{ trick.group.name}}</div>
 
@@ -45,11 +46,12 @@
     {% endif %}
     <div id="forComments" class="container mx-auto row my-3 ">
         {% for comment in displayedComments  %}
-            <div class=" col-sm-12 trick">
-                {#
-                <h3>{{ comment.dateAdd }}</h3>
-                #}
-                <p class="text-center">{{ comment.comment }}</p>
+            <div class=" col-sm-12 d-flex mb-1">
+                <div class="col-xl-1">
+                    <img src="{{ asset('images/avatar/' ~  comment.author.avatar ) }}" class="col-xl-12" alt="..."></div>
+                <div class="col-xl-1">{{ comment.author.username }}</div>
+                <div class="col-xl-8">{{ comment.comment }}</div>
+                <div class="col-xl-2">{{ comment.dateAdd|date("Y-m-d") }}</div>
             </div>
         {% endfor %}
     </div>

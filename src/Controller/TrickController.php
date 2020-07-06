@@ -22,6 +22,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TrickController extends AbstractController
 {
+
+    /**
+     * @var string
+     */
+    private $uploadDirAbsolutePath;
     /**
      * @var TrickRepository
      */
@@ -35,12 +40,13 @@ class TrickController extends AbstractController
      * TrickController constructor.
      * @param TrickRepository $trickRepository
      * @param CommentRepository $commentRepository
+     * @param string $uploadDirAbsolutePath
      */
-    public function __construct(TrickRepository $trickRepository, CommentRepository $commentRepository)
+    public function __construct(TrickRepository $trickRepository, CommentRepository $commentRepository,string $uploadDirAbsolutePath)
     {
         $this->trickRepository = $trickRepository;
         $this->commentRepository = $commentRepository;
-
+        $this->uploadDirAbsolutePath = $uploadDirAbsolutePath;
     }
 
     /**
@@ -75,6 +81,7 @@ class TrickController extends AbstractController
         return $this->render('pages/trick/show.html.twig',[
                 'trick' => $trick,
                 'displayedComments' => $displayedComments,
+                'uploadDirAbsolutePath' => $this->uploadDirAbsolutePath,
                 'current_menu'=>'home',
                 "form" => $handler->createView()
             ]
