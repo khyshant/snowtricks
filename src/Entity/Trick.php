@@ -324,6 +324,13 @@ class Trick
     public function setImages(Collection $images): void
     {
         $this->images = $images;
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
+            // set the owning side to null (unless already changed)
+            if ($image->getTrick() === $this) {
+                $image->setTrick(null);
+            }
+        }
     }
 
     /**
@@ -354,7 +361,13 @@ class Trick
      */
     public function setVideos($videos): void
     {
-        $this->videos = $videos;
+        if ($this->videos->contains($video)) {
+            $this->videos->removeElement($video);
+            // set the owning side to null (unless already changed)
+            if ($video->getTrick() === $this) {
+                $video->setTrick(null);
+            }
+        }
     }
 
     /**

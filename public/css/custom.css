@@ -52,10 +52,33 @@
 }
 
 ::-webkit-scrollbar {
-    height: 4px;
-    scrollbar-highlight-color:black;
-} /* this targets the default scrollbar (compulsory) */
-
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
 #logo{height : 5vh; width : auto;}
 #forTricks .trick .trick_title {font-size:16px;}
 #forTricks .trick .tricimg_trick {max-height: 100%; max-height:100%;object-fit: cover;}
+
+.img_uploaded{height:15vh;width:auto;}
+
+@media screen and (max-width : 1920px){
+    .div-only-mobile, .see_media{
+        display:none;
+    }
+}
+@media screen and (max-width : 906px){
+    .desk{
+        visibility:hidden;
+    }
+    .div-only-mobile{
+        display:none;
+    }
+    .see_media{
+        display:block;
+    }
+}

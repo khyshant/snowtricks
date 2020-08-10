@@ -53,15 +53,22 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js" integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
     <script>
+        var width = document.body.clientWidth;
         var left = 0;
         var max_length = document.getElementsByClassName('trick_item').length;
         function moveToLeft(item){
             for ($i = 0 ; $i<=5; $i++){
                 $elem = document.getElementById(item+(left+$i)).style.display = "block";
-
             }
             left= left+1;
-            console.log(left)
+        }
+        console.log(width);
+        if(width <= 850){
+            $("#media_container").removeClass('container flex desk');
+            $("#media_container").addClass('div-only-mobile');
+        } else {
+            $("#media_container").removeClass('div-only-mobile');
+            $("#media_container").addClass('container flex desk');
         }
         $(function()  {
             $(".btn-add").on("click", function () {
@@ -134,9 +141,19 @@
                 });
 
             });
+
         });
         function MoveOnCover(imgSrc) {
             document.getElementById('showImg').src = "{{ asset('uploads/') }}"+imgSrc;
+        }
+
+        function myFunction() {
+            var x = document.getElementsByClassName("div-only-mobile");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
         }
     </script>
 {% endblock %}

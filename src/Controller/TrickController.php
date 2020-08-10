@@ -126,10 +126,13 @@ class TrickController extends AbstractController
      * @return Response
      */
     public function create(Request $request,TrickHandler $handler): Response
-    {
-        if($handler->handle($request, new Trick(), ["validation_groups" => ["Default", "add"]        ]
+    {        $user = $this->getUser();
+        $trick = new Trick();
+        //$trick->setTitle('trick-'.$trick->getId());
+        $trick->setAuthor($user);
+        if($handler->handle($request, $trick, ["validation_groups" => ["Default", "add"]        ]
         )) {
-            return $this->redirectToRoute("trick_create");
+            return $this->redirectToRoute("trick_update",array('id' => $trick->getId()));
         }
         return $this->render("admin/trick/create.html.twig", [
             "form" => $handler->createView()
@@ -150,7 +153,8 @@ class TrickController extends AbstractController
             return $this->redirectToRoute("trick_update",array('id' => $trick->getId()));
         }
         return $this->render("admin/trick/update.html.twig", [
-            "form" => $handler->createView()
+            "form" => $handler->createView(),
+            "image_header" =>  $trick->getImages()->first()
         ]);
     }
 }

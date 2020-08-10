@@ -6,52 +6,52 @@
 {% block body %}
 
     <div class="container">
-        <img id="showImg" src="https://picsum.photos/1024/502" class="card-img-top" alt="...">
+        <img id="showImg" src="{{ asset('uploads/') }}{{ trick.images.0.path }}" class="card-img-top" alt="...">
         <h1 class="title-trick">{{ trick.title }}</h1>
     </div>
-    <div class="container flex test">
+    <button class="see_media btn btn-primary mx-auto" onclick="myFunction()">See medias</button>
+
+    <div id="" class="container flex desk">
         {% for key,image in trick.images  %}
-            <div id="showImg{{ key }}" class=" col-sm- col-md-2  " onclick="MoveOnCover('{{ image.path }}')">
+        <div id="showImg{{ key }}" class=" col-md-2 item " onclick="MoveOnCover('{{ image.path }}')">
             <img src="{{ asset('uploads/') }}{{ image.path }}" class="card-img-top trick_item" alt="..."></div >
         {% endfor %}
         {% for key,video in trick.videos  %}
-            <a  target="_blank" href="{{ video.uri }}" class=" col-sm- col-md-2  "><img src="{{ asset('uploads/video-logo.jpg') }}" class="card-img-top trick_item"></a>
+            <a  target="_blank" href="{{ video.uri }}" class=" col-sm- col-md-2  item"><img src="{{ asset('uploads/video-logo.jpg') }}" class="card-img-top trick_item"></a>
         {% endfor %}
     </div>
-    <div class="container my-3">
+
+    <div class="div-only-mobile">
+        {% for key,image in trick.images  %}
+            <div id="showImg{{ key }}" class="col-sm-12 mb-2 " onclick="MoveOnCover('{{ image.path }}')">
+                <img src="{{ asset('uploads/') }}{{ image.path }}" class="card-img-top" alt="..."></div >
+        {% endfor %}
+        {% for key,video in trick.videos  %}
+            <a  target="_blank" href="{{ video.uri }}" class=" col-sm- col-md-2  item"><img src="{{ asset('uploads/video-logo.jpg') }}" class="card-img-top trick_item"></a>
+        {% endfor %}
+    </div>
+
+
+    <div class="container ">
         {{ trick.description }}
+        <div class="my-3 row m-0">
+            <div class="col-lg-3 col-md-6 bg-secondary text-white text-center">Auteur : {{ trick.author.username }}</div>
 
+            <div class="col-lg-3 col-md-6  bg-secondary text-white text-center">Groupe : {{ trick.group.name}}</div>
 
-        <div class="flex my-3">
-            <div class="col-sm-2 mx-auto bg-secondary text-white text-center">Auteur : {{ trick.author.username }}</div>
+            <div class="col-lg-3 col-md-6  bg-secondary text-white text-center">Créé le : {{ trick.dateAdd|date('Y-m-d') }}</div>
 
-            <div class="col-sm-2 mx-auto bg-secondary text-white text-center">Groupe : {{ trick.group.name}}</div>
-
-            <div class="col-sm-2 mx-auto bg-secondary text-white text-center">Créé le : {{ trick.dateAdd|date('Y-m-d') }}</div>
-
-            <div class="col-sm-2 mx-auto bg-secondary text-white text-center">Dernière modification : {{ trick.dateUpdate|date('Y-m-d') }}</div>
+            <div class="col-lg-3 col-md-6  bg-secondary text-white text-center">Dernière modification : {{ trick.dateUpdate|date('Y-m-d') }}</div>
         </div>
     </div>
-    {% if is_granted('ROLE_USER') == true %}
-        {{ form_start(form) }}
-        {{ form_widget(form._token) }}
-        <div class="card-body">
-            {{ include("admin/comment/_form.html.twig") }}
-        </div>
-        <div class="card-footer">
-            <button class="btn btn-block btn-lg btn-primary">Ajouter le commentaire</button>
-        </div>
-        {{ form_end(form, { render_rest: false }) }}
-
-    {% endif %}
     <div id="forComments" class="container mx-auto row my-3 ">
         {% for comment in displayedComments  %}
             <div class=" col-sm-12 d-flex mb-1">
-                <div class="col-xl-1">
-                    <img src="{{ asset('images/avatar/' ~  comment.author.avatar ) }}" class="col-xl-12" alt="..."></div>
-                <div class="col-xl-1">{{ comment.author.username }}</div>
-                <div class="col-xl-8">{{ comment.comment }}</div>
-                <div class="col-xl-2">{{ comment.dateAdd|date("Y-m-d") }}</div>
+                <div class="col-sm-6 col-md-1 p-0 p-md-1">
+                    <img src="{{ asset('images/avatar/' ~  comment.author.avatar ) }}" class="col-xl-12 p-1" alt="..."></div>
+                <div class="col-sm-6 col-md-1">{{ comment.author.username }}</div>
+                <div class="col-sm-12 col-md-8">{{ comment.comment }}</div>
+                <div class="col-sm-12 col-md-2">{{ comment.dateAdd|date("Y-m-d") }}</div>
             </div>
         {% endfor %}
     </div>
@@ -61,4 +61,19 @@
             {#<a href="#" id="loadLessTrick"><i class="fas fa-minus-circle fa-3x"></i></a>#}
         </div>
     </div>
+
+    {% if is_granted('ROLE_USER') == true %}
+        <div class="container">
+
+            {{ form_start(form) }}
+            {{ form_widget(form._token) }}
+
+                {{ include("admin/comment/_form.html.twig") }}
+
+                <button class="btn btn-sm btn-primary text-center">Mettre à jour</button>
+
+            {{ form_end(form, { render_rest: false }) }}
+        </div>
+    {% endif %}
+
 {% endblock %}

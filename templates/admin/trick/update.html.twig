@@ -2,20 +2,18 @@
 
 {% block body %}
     <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-header">Modifier un article</div>
-                {{ form_start(form) }}
-                    {{ form_widget(form._token) }}
-                    <div class="card-body">
-                        {{ include("admin/trick/_form.html.twig", { form: form }) }}
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn btn-block btn-lg btn-primary">Modifier</button>
-                    </div>
-                {{ form_end(form, { render_rest: false }) }}
+        <div class="container">
+            <img id="showImg" src="{{ asset('uploads/') }}{{ image_header.path }}" class="card-img-top" alt="...">
+            <h3>Modifier un article</h3>
+        {{ form_start(form) }}
+            {{ form_widget(form._token) }}
+            <div class="form-group">
+                {{ include("admin/trick/_form.html.twig", { form: form }) }}
             </div>
-        </div>
+            <div class="">
+                <button class="btn btn-block btn-lg btn-primary">Modifier</button>
+            </div>
+        {{ form_end(form, { render_rest: false }) }}
     </div>
 {% endblock %}
 

@@ -1,34 +1,33 @@
-<div class="container">
+
+<div  class="container ">
     {{ form_row(form.title) }}
-    {#
-    {{ form_row(form.valid) }}
-    #}
-    {{ form_row(form.description) }}
-    {{ form_row(form.metatitle) }}
-    {{ form_row(form.metadescription) }}
-    {{ form_row(form.group) }}
-    <button class="btn btn-primary btn-add" type="button" data-target="#images">Ajouter une image</button>
+
+    <button class="btn btn-primary btn-add mx-auto" type="button" data-target="#images">Ajouter une image</button>
     <div
             id="images"
-            class="col-6"
+            class="row p-0"
             data-index="{{ form.images|length == 0 ? 0 : form.images|last.vars.name + 1  }}"
             data-prototype="{{ include("admin/trick/image.html.twig", { form: form.images.vars.prototype })|e("html_attr") }}"
     >
-        {% for image in form.images %}
-
-
+        {% for key,image in form.images %}
+            {{ include("admin/trick/image.html.twig", { form: image })}}
         {% endfor %}
     </div>
     <button class="btn btn-primary btn-add" type="button" data-target="#videos">Ajouter une lien videos</button>
     <div
             id="videos"
-            class="col-6"
+            class="row p-0"
             data-index="{{ form.videos|length == 0 ? 0 : form.videos|last.vars.name + 1  }}"
             data-prototype="{{ include("admin/trick/video.html.twig", { form: form.videos.vars.prototype })|e("html_attr") }}"
     >
         {% for video in form.videos %}
-
-
+            {{ include("admin/trick/video.html.twig", { form: video })}}
         {% endfor %}
     </div>
+    {{ form_row(form.description) }}
+    {{ form_row(form.metatitle) }}
+    {{ form_row(form.metadescription) }}
+    {{ form_row(form.group) }}
+
+
 </div>

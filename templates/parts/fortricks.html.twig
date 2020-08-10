@@ -1,6 +1,6 @@
 
 {% for trick in tricks  %}
-    <div class=" col-sm-6 col-md-3 trick">
+    <div class=" mb-2 col-md-6 col-l-3 trick">
         <h3 class="text-center trick_title">{{ trick.title }}</h3>
         {% for  image in trick.images %}
             {% if loop.first %}<img src="{{ asset('uploads/' ~ image.path ) }}" class="card-img-top img_trick" alt="...">{% endif %}
@@ -9,15 +9,15 @@
             <p class="card-text">{{ trick.description|slice(0,50) }}...</p>
             <a class="float-right" href="{{ path('trick.show',{slug: trick.slug}) }}" title="voir {{ trick.title }}">Voir plus</a>
         </div>
-
+        {% if is_granted('edit',trick) %}
             <div class="card-footer mt-2 text-right">
-                {% if is_granted('edit',trick) %}
                 <a class="mx-1" href="{{ path('trick_update',{id: trick.id}) }}"><i class="fa fa-pen" aria-hidden="true"></i>
                 </a>
                 <a class="mx-1" href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-trash" aria-hidden="true"></i>
                 </a>
-                {% endif %}
+
             </div>
+        {% endif %}
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
