@@ -6,7 +6,7 @@
             {% if loop.first %}<img src="{{ asset('uploads/' ~ image.path ) }}" class="card-img-top img_trick" alt="...">{% endif %}
         {% endfor %}
         <div class="card-body">
-            <p class="card-text">{{ trick.description|slice(0,50) }}...</p>
+            <p class="card-text">{{ trick.description|slice(0,50)|raw }}...</p>
             <a class="float-right" href="{{ path('trick.show',{slug: trick.slug}) }}" title="voir {{ trick.title }}">Voir plus</a>
         </div>
         {% if is_granted('edit',trick) %}

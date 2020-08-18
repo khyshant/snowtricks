@@ -9,7 +9,11 @@
                         {% if loop.first %}<img src="{{ asset('uploads/' ~ image.path ) }}" class="card-img-top img_trick" alt="...">{% endif %}
                     {% endfor %}
                 <div class="card-body">
-                    <p class="card-text">{{ trick.description|slice(0,50) }}...</p>
+
+                    {% autoescape %}
+                        {{ trick.description|raw|slice(0,50)}}...
+                        {{ trick.description|raw|slice(0,50)}}...
+                    {% endautoescape %}
                     <a class="float-right" href="{{ path('trick.show',{slug: trick.slug}) }}" title="voir {{ trick.title }}">Voir plus</a>
                 </div>
                 {% if is_granted('edit',trick) %}

@@ -33,7 +33,7 @@
 
 
     <div class="container ">
-        {{ trick.description }}
+        {{ trick.description|raw }}
         <div class="my-3 row m-0">
             <div class="col-lg-3 col-md-6 bg-secondary text-white text-center">Auteur : {{ trick.author.username }}</div>
 
@@ -58,7 +58,6 @@
     <div class="container">
         <div class="row justify-content-center m-3">
             <a href="javascript:void(0)" id="loadMoreComment"><i class="fas fa-plus-circle fa-3x"></i></a>
-            {#<a href="#" id="loadLessTrick"><i class="fas fa-minus-circle fa-3x"></i></a>#}
         </div>
     </div>
 
