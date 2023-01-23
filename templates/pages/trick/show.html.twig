@@ -47,8 +47,8 @@
     <div id="forComments" class="container mx-auto row my-3 ">
         {% for comment in displayedComments  %}
             <div class=" col-sm-12 d-flex mb-1">
-                <div class="col-sm-6 col-md-1 p-0 p-md-1">
-                    <img src="{{ asset('images/avatar/' ~  comment.author.avatar ) }}" class="col-xl-12 p-1" alt="..."></div>
+                <div class="col-sm-11 col-md-1 p-0 p-md-1">
+                    <img src="{{ asset('images/avatar/' ~  comment.author.avatar ) }}" class="p-1" alt="..."></div>
                 <div class="col-sm-6 col-md-1">{{ comment.author.username }}</div>
                 <div class="col-sm-12 col-md-8">{{ comment.comment }}</div>
                 <div class="col-sm-12 col-md-2">{{ comment.dateAdd|date("Y-m-d") }}</div>

@@ -82,7 +82,7 @@ class User implements UserInterface
         return $this->id;
     }
 
-    /*__________construc___________*/
+    /*__________construct___________*/
     public function __construct(){
         $this->setAvatar() ;
         $this->comments = new ArrayCollection();

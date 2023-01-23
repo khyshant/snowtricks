@@ -11,7 +11,7 @@ use App\Entity\Video;
 use App\Repository\UserRepository;
 use App\Repository\GroupRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 

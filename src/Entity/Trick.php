@@ -76,7 +76,7 @@ class Trick
     private $dateUpdate;
     /*__________relations___________*/
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User" )
      */
     private $author;
 
